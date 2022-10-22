@@ -9,7 +9,9 @@ import { dateUTC, getAge } from './date';
 import { filterObject } from 'helpers/filter';
 import { wait } from 'helpers/wait';
 
-export const syncClientsXimiToHS: RequestHandler = async (req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
+export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	try {
 		const { Results: ximiClients } = await ximiGetClients();
 
@@ -89,16 +91,23 @@ export const syncClientsXimiToHS: RequestHandler = async (req, res, next) => {
 			await wait(500);
 		}
 
-		res.json({
-			message: 'Synced clients and propsects [XIMI] -> [HS]',
-		});
+		if (res) {
+			res.json({
+				message: 'Synced clients and propsects [XIMI] -> [HS]',
+			});
+		}
 	} catch (err) {
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
-		next(err);
+
+		if (next) {
+			next(err);
+		}
 	}
 };
 
-export const syncAgentsXimiToHS: RequestHandler = async (req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
+export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	try {
 		const { Results: ximiAgents } = await ximiGetAgents();
 
@@ -149,11 +158,16 @@ export const syncAgentsXimiToHS: RequestHandler = async (req, res, next) => {
 			await wait(500);
 		}
 
-		res.json({
-			message: 'Synced agents [XIMI] -> [HS]',
-		});
+		if (res) {
+			res.json({
+				message: 'Synced agents [XIMI] -> [HS]',
+			});
+		}
 	} catch (err) {
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
-		next(err);
+
+		if (next) {
+			next(err);
+		}
 	}
 };
