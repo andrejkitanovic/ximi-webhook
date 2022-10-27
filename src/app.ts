@@ -34,3 +34,9 @@ routing(app);
 app.use(errorMiddleware);
 
 connection(app);
+
+// import { ximiGetClientsGraphql } from 'controllers/ximi';
+
+// (async function(){
+// 	console.log(await ximiGetClientsGraphql())
+// }())

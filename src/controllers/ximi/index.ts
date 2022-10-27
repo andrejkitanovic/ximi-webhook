@@ -7,7 +7,6 @@ const axios = axiosDefault.create({
 	},
 });
 
-// const env = '';
 const env = '/Addi';
 
 export const ximiUsrLogin = async () => {
@@ -23,9 +22,80 @@ export const ximiGetClients = async () => {
 	return data;
 };
 
+export const ximiGetClientsGraphql = async () => {
+	const { data } = await axios.post(`${env}/api/graphql`, {
+		Query: `
+		{
+			clients {
+				items {
+					id
+					cTime
+					stage
+					lastInterventionDate
+					status
+					email
+					homePhone
+					phone
+					contact {
+						firstName
+						lastName
+						birthDate
+						title
+						familyStatus
+						emailAddress1
+					}
+					address {
+						zip
+						street1
+						building
+					}
+					needsStr
+					isIsolated
+					computedGIRSAAD
+				}
+			}
+		}
+		`,
+	});
+	console.log(data)
+	return data?.data?.clients?.items || [];
+};
+
 export const ximiGetAgents = async () => {
 	const { data } = await axios.get(`${env}/api/agents`);
 	return data;
+};
+
+export const ximiGetAgentsGraphql = async () => {
+	const { data } = await axios.post(`${env}/api/graphql`, {
+		Query: `
+		{
+			agents {
+				items {
+					id
+					cTime
+					stage
+					lastInterventionDate
+					status
+					emailAddress1
+					homePhone
+					firstName
+					lastName
+					birthDate
+					title
+					address {
+						zip
+						street1
+						building
+					}
+				}
+			}
+		}
+		`,
+	});
+	console.log(data)
+
+	return data?.data?.agents?.items || [];
 };
 
 export const ximiGetContact = async (LastName: string, FirstName: string, Partition: number, Email: string) => {
@@ -42,22 +112,4 @@ export const ximiGetContact = async (LastName: string, FirstName: string, Partit
 		return data.Results[0];
 	}
 	return null;
-};
-
-export const ximiGetQuote = async (clientId: string) => {
-	try {
-		const { data } = await axios.get(`${env}/api/clients/${clientId}/quote`);
-		return data;
-	} catch (err) {
-		return null;
-	}
-};
-
-export const ximiGetInterventions = async (since: string) => {
-	const { data } = await axios.get(`${env}/api/interventions/changes`, {
-		params: {
-			since,
-		},
-	});
-	return data;
 };

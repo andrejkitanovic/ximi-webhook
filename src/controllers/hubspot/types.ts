@@ -1,7 +1,6 @@
 export type HSProperty = {
 	firstname?: string;
 	lastname?: string;
-
 	id_ximi: number;
 	gir: 1 | 2 | 3 | 4 | 5 | 6;
 	date_d_entree: number; // Date
@@ -9,12 +8,19 @@ export type HSProperty = {
 	telephone_agence_de_proximite: string;
 	email: string;
 	nom_du_dernier_intervenant: string;
-	civilite: string;
+	civilite: string | null;
 	origine_de_la_demande: string; // Select
+	phone: string;
+	mobilephone: string;
+	hs_content_membership_status: 'active' | 'inactive';
+	age: number;
+	date_of_birth: string;
+	address: string;
 };
 
 export type HSClient = HSProperty & {
 	type_de_contact: 'Client';
+	type_de_contact_aidadomi: 'Client';
 	categorie: 'Cadre' | 'Non cadre';
 	categorie_client: 'Mandataire' | 'Prestataire';
 	zip: string;
@@ -40,11 +46,11 @@ export type HSClient = HSProperty & {
 	besoins: string; // Multi select
 	situation_familiale: string; // Select
 	personne_isolee: 'true' | 'false';
-	age: number;
 };
 
-export type HSProspect = HSProperty & {
+export type HSProspect = HSClient & {
 	type_de_contact: 'Prospect';
+	type_de_contact_aidadomi: 'Prospect';
 	createdate: number; // Date
 	segmentation_client: 'PA' | 'PSH' | 'GE' | 'TELEASSISTANCE' | 'JARDI' | 'ENTRETIEN' | 'Assistance/mutuelles';
 	sous_segmentation_client:
@@ -71,6 +77,7 @@ export type HSProspect = HSProperty & {
 
 export type HSIntervenants = HSProperty & {
 	type_de_contact: 'Intervenant';
+	type_de_contact_aidadomi: 'Intervenant';
 	stade: string; // Select
 	zip: string;
 	agence: string; // Select

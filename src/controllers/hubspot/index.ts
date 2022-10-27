@@ -70,13 +70,26 @@ export const hsCreateContact = async (properties: any) => {
 	}
 };
 
+export const hsUpdateContact = async (id: string, properties: any) => {
+	try {
+		console.log('update contact', id);
+		const result = await hubspotClient.crm.contacts.basicApi.update(id, {
+			properties,
+		});
+
+		return result.id;
+	} catch (err: any) {
+		console.error('UPDATE CONTACT ERROR', err.body);
+		return false;
+	}
+};
+
 export const hsCreateContactNote = async (contactId: string, ximiId: string) => {
 	try {
 		const { id: noteId } = await hubspotClient.crm.objects.notes.basicApi.create({
 			properties: {
 				hs_timestamp: new Date().toISOString(),
-				hs_note_body:
-					`<a href="https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiId}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1">[XIMI] Timetable Link</a>`,
+				hs_note_body: `<a href="https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiId}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1">[XIMI] Timetable Link</a>`,
 			},
 		});
 		await hubspotClient.crm.objects.notes.associationsApi.create(noteId, 'contact', contactId, 'note_to_contact');

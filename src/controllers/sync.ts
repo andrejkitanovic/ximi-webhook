@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
 import { writeInFile } from 'helpers/writeInFile';
-import { ximiGetClients, ximiGetAgents, ximiGetQuote } from './ximi';
+import { ximiGetAgents, ximiGetAgentsGraphql, ximiGetClients, ximiGetClientsGraphql } from './ximi';
 import './date';
 
-import { HSClient, HSIntervenants, HSProspect, HSProperty } from './hubspot/types';
-import { hsCreateContact, hsCreateContactNote, hsXimiExists } from './hubspot';
+import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
+import { hsCreateContact, hsCreateContactNote, hsUpdateContact, hsXimiExists } from './hubspot';
 import { dateUTC, getAge } from './date';
 import { filterObject } from 'helpers/filter';
 import { wait } from 'helpers/wait';
@@ -13,48 +13,63 @@ import { wait } from 'helpers/wait';
 //@ts-expect-error
 export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	try {
-		const { Results: ximiClients } = await ximiGetClients();
+		const { Results: ximiIds } = await ximiGetClients();
+		let ximiClients = await ximiGetClientsGraphql();
+		ximiClients = ximiClients.map((client: any) => {
+			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === client.id).Id;
+
+			return {
+				...client,
+				id,
+			};
+		});
 
 		for await (const ximiClient of ximiClients) {
-			const { Contact } = ximiClient;
-			const ximiID = ximiClient.Id;
+			const { contact } = ximiClient;
+			const ximiID = ximiClient.id;
+
+			if (!ximiClient.email) continue;
+
+			const civilite =
+				contact.title === 'MRS'
+					? 'Madame'
+					: contact.title === 'MR'
+					? 'Monsieur'
+					: contact.title === 'MR'
+					? 'Mademoiselle'
+					: null;
 
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
-			const hsProperty: HSProperty = {
+			let hsClient: HSClient = {
 				id_ximi: ximiID,
-				firstname: Contact.FirstName,
-				lastname: Contact.LastName,
-				email: Contact.EmailAddress1 || Contact.EmailAddress2 || Contact.EmailAddress3,
-				date_d_entree: ximiClient.CTime && dateUTC(ximiClient.CTime),
-				adresse_agence_de_proximite: '', // No contact with company
-				telephone_agence_de_proximite: '', // No contact with company
-				// gir: 1, // hardcoded
-				// nom_du_dernier_intervenant: '', // hardcoded
-				// civilite: '', // hardcoded
-				// origine_de_la_demande: 'Autre', // hardcoded
+				age: ximiClient.birthDate && getAge(ximiClient.birthDate),
+				date_of_birth: ximiClient.birthDate,
+				gir: ximiClient.computedGIRSAAD > 0 ? ximiClient.computedGIRSAAD : null,
+				type_de_contact: 'Client',
+				type_de_contact_aidadomi: 'Client',
+				firstname: contact.firstName,
+				lastname: contact.lastName,
+				email: ximiClient.email,
+				date_d_entree: ximiClient.cTime && dateUTC(ximiClient.cTime),
+				zip: ximiClient.address.zip,
+				besoins: contact.needsStr,
+				personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
+				civilite: civilite,
+				phone: ximiClient.homePhone,
+				mobilephone: ximiClient.phone,
+				hs_content_membership_status: ximiClient.status === 'ACTIV' ? 'active' : 'inactive',
+				address: ximiClient.address?.street1 + ' ' + ximiClient.address?.building,
+				// situation_familiale: contact.familyStatus === "NONE" ? "" : contact.familyStatus
 			};
 
-			if (!hsProperty.email) {
-				// Required fields
-				continue;
+			if (ximiClient.stage === 'PROSPECT') {
+				hsClient = {
+					...hsClient,
+					type_de_contact: 'Prospect',
+					type_de_contact_aidadomi: 'Prospect',
+				} as HSProspect;
 			}
-
-			let hsClient = {
-				...hsProperty,
-				type_de_contact: 'Client',
-				zip: Contact.Address?.Zip,
-				date_de_la_premiere_intervention_chez_le_client: ximiClient && dateUTC(ximiClient.FirstContactDate),
-				age: ximiClient.BirthDate && getAge(ximiClient.BirthDate),
-				// categorie: 'Cadre', // hardcoded
-				// categorie_client: 'Mandataire', // hardcoded
-				// agence: 'Arles', // hardcoded
-				// segmentation_client: 'PA', // hardcoded
-				// sous_segmentation_client: 'APA', // hardcoded
-				// besoins: 'Bricolage', // hardcoded
-				// situation_familiale: 'Divorcé(e)', // hardcoded
-				// personne_isolee: 'true', // hardcoded
-			} as HSClient;
 
 			hsClient = filterObject(hsClient);
 
@@ -62,30 +77,14 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 
 			if (hsExists) {
 				console.log('Property Exists' + ' ' + hsExists);
+
+				await hsUpdateContact(hsExists, hsClient);
 			} else {
 				const contactId = await hsCreateContact(hsClient);
 
 				if (contactId) {
 					await hsCreateContactNote(contactId, ximiID);
 				}
-			}
-
-			const hasQuote = await ximiGetQuote(ximiID);
-
-			if (hasQuote) {
-				const hsPropsect = {
-					...hsProperty,
-					type_de_contact: 'Prospect',
-					age: ximiClient.BirthDate && getAge(ximiClient.BirthDate),
-					// createdate: dateUTC('06/05/2022'), // hardcoded
-					// segmentation_client: 'PA', // hardcoded
-					// sous_segmentation_client: 'APA', // hardcoded
-					// besoins: 'Bricolage', // hardcoded
-					// situation_familiale: 'Divorcé(e)', // hardcoded
-					// personne_isolee: 'true', // hardcoded
-				} as HSProspect;
-
-				console.log(hsPropsect);
 			}
 
 			await wait(500);
@@ -109,43 +108,57 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 //@ts-expect-error
 export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	try {
-		const { Results: ximiAgents } = await ximiGetAgents();
+		const { Results: ximiIds } = await ximiGetAgents();
+		let ximiAgents = await ximiGetAgentsGraphql();
+		ximiAgents = ximiAgents.map((agent: any) => {
+			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === agent.id).Id;
+
+			return {
+				...agent,
+				id,
+			};
+		});
 
 		for await (const ximiAgent of ximiAgents) {
-			const ximiID = ximiAgent.Id;
+			const ximiID = ximiAgent.id;
+
+			if (!ximiAgent.emailAddress1) continue;
+
+			const civilite =
+				ximiAgent.title === 'MRS'
+					? 'Madame'
+					: ximiAgent.title === 'MR'
+					? 'Monsieur'
+					: ximiAgent.title === 'MR'
+					? 'Mademoiselle'
+					: null;
 
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsProperty: HSIntervenants = {
 				id_ximi: ximiID,
-				firstname: ximiAgent.FirstName,
-				lastname: ximiAgent.LastName,
-				email: ximiAgent.EmailAddress1 || ximiAgent.EmailAddress2 || ximiAgent.EmailAddress3,
-				date_d_entree: ximiAgent.CTime && dateUTC(ximiAgent.CTime),
-				adresse_agence_de_proximite: '', // No contact with company
-				telephone_agence_de_proximite: '', // No contact with company
-				// gir: 1, // hardcoded
-				// nom_du_dernier_intervenant: '', // hardcoded
-				// civilite: '', // hardcoded
-				// origine_de_la_demande: 'Autre', // hardcoded
 				type_de_contact: 'Intervenant',
-				zip: ximiAgent.Address?.Zip || '',
-				// stade: '', // hardcoded
-				// agence: 'Arles', // hardcoded
-				// competences: '', // hardcoded
+				firstname: ximiAgent.firstName,
+				lastname: ximiAgent.lastName,
+				email: ximiAgent.emailAddress1,
+				date_d_entree: ximiAgent.cTime && dateUTC(ximiAgent.cTime),
+				mobilephone: ximiAgent.phone,
+				zip: ximiAgent.address?.zip || '',
+				civilite: civilite,
+				hs_content_membership_status: ximiAgent.status === 'ACTIV' ? 'active' : 'inactive',
+				age: ximiAgent.birthDate && getAge(ximiAgent.birthDate),
+				date_of_birth: ximiAgent.birthDate,
+				address: ximiAgent.address?.street1 + ' ' + ximiAgent.address?.building,
 			};
-
-			if (!hsProperty.email) {
-				// Required fields
-				continue;
-			}
 
 			hsProperty = filterObject(hsProperty);
 
 			const hsExists = await hsXimiExists(`${ximiID}`, hsProperty.email);
 
 			if (hsExists) {
-				console.log('Property Exists' + ' ' + hsExists);
+				console.log(`Property Exists ${hsExists}`);
+
+				await hsUpdateContact(hsExists, hsProperty);
 			} else {
 				const contactId = await hsCreateContact(hsProperty);
 
