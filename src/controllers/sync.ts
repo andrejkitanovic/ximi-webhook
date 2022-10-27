@@ -1,10 +1,17 @@
 import { RequestHandler } from 'express';
 import { writeInFile } from 'helpers/writeInFile';
-import { ximiGetAgents, ximiGetAgentsGraphql, ximiGetClients, ximiGetClientsGraphql } from './ximi';
+import { ximiCreateClient, ximiGetAgents, ximiGetAgentsGraphql, ximiGetClients, ximiGetClientsGraphql } from './ximi';
 import './date';
 
 import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
-import { hsCreateContact, hsCreateContactNote, hsUpdateContact, hsXimiExists } from './hubspot';
+import {
+	hsCreateContact,
+	hsCreateContactNote,
+	hsGetDeals,
+	hsUpdateContact,
+	hsXimiExists,
+	hubspotClient,
+} from './hubspot';
 import { dateUTC, getAge } from './date';
 import { filterObject } from 'helpers/filter';
 import { wait } from 'helpers/wait';
@@ -174,6 +181,71 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 		if (res) {
 			res.json({
 				message: 'Synced agents [XIMI] -> [HS]',
+			});
+		}
+	} catch (err) {
+		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
+
+		if (next) {
+			next(err);
+		}
+	}
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
+export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) => {
+	try {
+		const deals = await hsGetDeals();
+
+		for await (const deal of deals) {
+			const { results: contactAssocations } = await hubspotClient.crm.deals.associationsApi.getAll(deal.id, 'contact');
+
+			if (!contactAssocations.length) return;
+
+			const contactId = contactAssocations[0].id;
+
+			const { properties: contact } = await hubspotClient.crm.contacts.basicApi.getById(contactId, [
+				'firstname',
+				'lastname',
+				'gir',
+				'date_d_entree',
+				'email',
+				'civilite',
+				'phone',
+				'mobilephone',
+				'hs_content_membership_status',
+				'date_of_birth',
+				'address',
+				'zip',
+				'city',
+			]);
+
+			console.log(contact);
+
+			await ximiCreateClient({
+				Type: 2,
+				// 	status: '',
+				Email: contact.email,
+				// 	homePhone: '',
+				Contact: {
+					Title: 1,
+					FirstName: contact.firstname,
+					LastName: contact.lastname,
+					BirthDate: contact.date_of_birth,
+					// title: contact.civilite,
+					MobilePhone: contact.phone,
+					// familyStatus: '',
+					EmailAddress1: contact.email,
+				},
+				Address: {
+					Zip: contact.zip ?? '',
+					Street1: contact.address ?? '',
+					City: contact.city ?? '',
+				},
+				// 	needsStr: '',
+				// 	isIsolated: '',
+				// 	computedGIRSAAD: '',
 			});
 		}
 	} catch (err) {

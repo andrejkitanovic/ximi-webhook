@@ -57,7 +57,7 @@ export const ximiGetClientsGraphql = async () => {
 		}
 		`,
 	});
-	console.log(data)
+	console.log(data);
 	return data?.data?.clients?.items || [];
 };
 
@@ -93,7 +93,7 @@ export const ximiGetAgentsGraphql = async () => {
 		}
 		`,
 	});
-	console.log(data)
+	console.log(data);
 
 	return data?.data?.agents?.items || [];
 };
@@ -112,4 +112,12 @@ export const ximiGetContact = async (LastName: string, FirstName: string, Partit
 		return data.Results[0];
 	}
 	return null;
+};
+
+export const ximiCreateClient = async (data: any) => {
+	try {
+		await axios.post(`${env}/api/clients`, data);
+	} catch (err) {
+		console.log('ERROR CREATING CONTACT', err);
+	}
 };

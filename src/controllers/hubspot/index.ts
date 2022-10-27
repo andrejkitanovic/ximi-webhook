@@ -1,6 +1,8 @@
 import { Client } from '@hubspot/api-client';
 import { Filter, FilterGroup } from '@hubspot/api-client/lib/codegen/crm/contacts';
 import axiosDefault from 'axios';
+import { dateUTC } from 'controllers/date';
+import dayjs from 'dayjs';
 
 const axios = axiosDefault.create({
 	baseURL: 'https://api.hubapi.com',
@@ -98,5 +100,26 @@ export const hsCreateContactNote = async (contactId: string, ximiId: string) => 
 	} catch (err: any) {
 		console.error('CREATE NOTE ERROR', err);
 		return false;
+	}
+};
+
+export const hsGetDeals = async () => {
+	try {
+		const { results } = await hubspotClient.crm.deals.searchApi.doSearch({
+			filterGroups: [
+				{
+					filters: [{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` }],
+				},
+			],
+			sorts: [],
+			properties: ['dealname'],
+			limit: 100,
+			after: 0,
+		});
+
+		return results ?? [];
+	} catch (err: any) {
+		console.log('SEARCH DEAL ERROR', err);
+		return [];
 	}
 };
