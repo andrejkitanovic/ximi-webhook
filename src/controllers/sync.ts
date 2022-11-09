@@ -46,13 +46,36 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 					? 'Mademoiselle'
 					: null;
 
+			let categorie: 'Cadre' | 'Non cadre' | undefined = undefined;
+
+			if (ximiClient.modality.length) {
+				if (ximiClient.modality[0] === 'M') {
+					categorie = 'Cadre';
+				} else categorie = 'Non cadre';
+			}
+
+			const interventions = ximiClient.interventions;
+
+			let date_de_la_premiere_intervention_chez_le_client: Date | undefined = undefined;
+			let nom_du_dernier_intervenant: string | undefined = undefined;
+
+			if (interventions.length) {
+				date_de_la_premiere_intervention_chez_le_client =
+					interventions[0].startDate && dateUTC(interventions[0].startDate);
+				if (interventions[0].agent) {
+					nom_du_dernier_intervenant = `${interventions[0].agent.firstName} ${interventions[0].agent.lastName}`;
+				}
+			}
+
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsClient: HSClient = {
 				id_ximi: ximiID,
+				ne_e__le: ximiClient.birthDate,
 				age: ximiClient.birthDate && getAge(ximiClient.birthDate),
 				date_of_birth: ximiClient.birthDate,
 				gir: ximiClient.computedGIRSAAD > 0 ? ximiClient.computedGIRSAAD : null,
+				categorie,
 				type_de_contact: 'Client',
 				type_de_contact_aidadomi: 'Client',
 				firstname: contact.firstName,
@@ -67,6 +90,11 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				mobilephone: ximiClient.phone,
 				hs_content_membership_status: ximiClient.status === 'ACTIV' ? 'active' : 'inactive',
 				address: ximiClient.address?.street1 + ' ' + ximiClient.address?.building,
+				date_de_la_derniere_intervention_realisee:
+					ximiClient.lastInterventionDate && dateUTC(ximiClient.lastInterventionDate),
+				date_de_fin_de_mission: ximiClient.lastMissionEnd && dateUTC(ximiClient.lastMissionEnd),
+				date_de_la_premiere_intervention_chez_le_client,
+				nom_du_dernier_intervenant,
 				// situation_familiale: contact.familyStatus === "NONE" ? "" : contact.familyStatus
 			};
 
@@ -156,6 +184,8 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				age: ximiAgent.birthDate && getAge(ximiAgent.birthDate),
 				date_of_birth: ximiAgent.birthDate,
 				address: ximiAgent.address?.street1 + ' ' + ximiAgent.address?.building,
+				date_de_la_derniere_intervention_realisee:
+					ximiAgent.lastInterventionDate && dateUTC(ximiAgent.lastInterventionDate),
 			};
 
 			hsProperty = filterObject(hsProperty);

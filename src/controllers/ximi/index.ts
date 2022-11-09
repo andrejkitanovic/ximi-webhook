@@ -31,11 +31,13 @@ export const ximiGetClientsGraphql = async () => {
 					id
 					cTime
 					stage
-					lastInterventionDate
 					status
 					email
 					homePhone
 					phone
+					modality
+					lastInterventionDate
+					lastMissionEnd
 					contact {
 						firstName
 						lastName
@@ -48,6 +50,13 @@ export const ximiGetClientsGraphql = async () => {
 						zip
 						street1
 						building
+					}
+					interventions {
+						startDate
+						agent {
+							firstName
+							lastName
+						}
 					}
 					needsStr
 					isIsolated

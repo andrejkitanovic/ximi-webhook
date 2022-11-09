@@ -7,7 +7,7 @@ export type HSProperty = {
 	adresse_agence_de_proximite: string;
 	telephone_agence_de_proximite: string;
 	email: string;
-	nom_du_dernier_intervenant: string;
+	nom_du_dernier_intervenant: string | undefined;
 	civilite: string | null;
 	origine_de_la_demande: string; // Select
 	phone: string;
@@ -16,12 +16,13 @@ export type HSProperty = {
 	age: number;
 	date_of_birth: string;
 	address: string;
+	ne_e__le: Date;
 };
 
 export type HSClient = HSProperty & {
 	type_de_contact: 'Client';
 	type_de_contact_aidadomi: 'Client';
-	categorie: 'Cadre' | 'Non cadre';
+	categorie: 'Cadre' | 'Non cadre' | undefined;
 	categorie_client: 'Mandataire' | 'Prestataire';
 	zip: string;
 	agence: string; // Select
@@ -42,10 +43,14 @@ export type HSClient = HSProperty & {
 		| 'Jardinage'
 		| 'Bricolage'
 		| 'Assistance/mutuelles'; // Multi select
-	date_de_la_premiere_intervention_chez_le_client: number; // Date
+
 	besoins: string; // Multi select
 	situation_familiale: string; // Select
 	personne_isolee: 'true' | 'false';
+	date_de_la_derniere_intervention_realisee: Date | undefined;
+	date_de_fin_de_mission: Date | undefined;
+	date_de_la_premiere_intervention_chez_le_client: Date | undefined;
+
 };
 
 export type HSProspect = HSClient & {
@@ -82,4 +87,5 @@ export type HSIntervenants = HSProperty & {
 	zip: string;
 	agence: string; // Select
 	competences: string; // Select
+	date_de_la_derniere_intervention_realisee: Date | undefined;
 };
