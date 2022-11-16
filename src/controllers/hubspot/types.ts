@@ -9,7 +9,7 @@ export type HSProperty = {
 	email: string;
 	nom_du_dernier_intervenant: string | undefined;
 	civilite: string | null;
-	origine_de_la_demande: string; // Select
+	origine_de_la_demande_1: string; // Select
 	phone: string;
 	mobilephone: string;
 	hs_content_membership_status: 'active' | 'inactive';
@@ -17,6 +17,13 @@ export type HSProperty = {
 	date_of_birth: string;
 	address: string;
 	ne_e__le: Date;
+	city: string;
+	date_de_creation: Date;
+	ville: string;
+	date_de_naissance: Date;
+	date_de_la_premiere_intervention_chez_le_client: Date | undefined;
+	derniere_intervention___nom_prestation: Date | undefined;
+	// hs_createdate: Date
 };
 
 export type HSClient = HSProperty & {
@@ -45,18 +52,17 @@ export type HSClient = HSProperty & {
 		| 'Assistance/mutuelles'; // Multi select
 
 	besoins: string; // Multi select
-	situation_familiale: string; // Select
+	situation_familiale_1: string; // Select
 	personne_isolee: 'true' | 'false';
 	date_de_la_derniere_intervention_realisee: Date | undefined;
 	date_de_fin_de_mission: Date | undefined;
-	date_de_la_premiere_intervention_chez_le_client: Date | undefined;
+
 
 };
 
 export type HSProspect = HSClient & {
 	type_de_contact: 'Prospect';
 	type_de_contact_aidadomi: 'Prospect';
-	createdate: number; // Date
 	segmentation_client: 'PA' | 'PSH' | 'GE' | 'TELEASSISTANCE' | 'JARDI' | 'ENTRETIEN' | 'Assistance/mutuelles';
 	sous_segmentation_client:
 		| 'PA sans PEC'

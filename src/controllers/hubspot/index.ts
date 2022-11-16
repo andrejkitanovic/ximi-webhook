@@ -74,7 +74,7 @@ export const hsCreateContact = async (properties: any) => {
 
 export const hsUpdateContact = async (id: string, properties: any) => {
 	try {
-		console.log('update contact', id);
+		console.log('update contact ' + id + ' ' + properties?.email);
 		const result = await hubspotClient.crm.contacts.basicApi.update(id, {
 			properties,
 		});

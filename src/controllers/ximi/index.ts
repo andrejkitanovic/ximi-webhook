@@ -38,6 +38,9 @@ export const ximiGetClientsGraphql = async () => {
 					modality
 					lastInterventionDate
 					lastMissionEnd
+					contactSource { 
+						internalType
+					}
 					contact {
 						firstName
 						lastName
@@ -49,6 +52,7 @@ export const ximiGetClientsGraphql = async () => {
 					address {
 						zip
 						street1
+						city
 						building
 					}
 					interventions {
@@ -83,6 +87,7 @@ export const ximiGetAgentsGraphql = async () => {
 				items {
 					id
 					cTime
+					mobilePhone
 					stage
 					lastInterventionDate
 					status
@@ -92,10 +97,17 @@ export const ximiGetAgentsGraphql = async () => {
 					lastName
 					birthDate
 					title
+					contactSource { 
+						internalType
+					}
 					address {
 						zip
 						street1
+						city
 						building
+					}
+					interventions {
+						startDate
 					}
 				}
 			}
