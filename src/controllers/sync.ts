@@ -1,12 +1,21 @@
 import { RequestHandler } from 'express';
 import { writeInFile } from 'helpers/writeInFile';
-import { ximiCreateClient, ximiGetAgents, ximiGetAgentsGraphql, ximiGetClients, ximiGetClientsGraphql } from './ximi';
+import {
+	ximiCreateAgent,
+	ximiCreateClient,
+	ximiGetAgents,
+	ximiGetAgentsGraphql,
+	ximiGetClients,
+	ximiGetClientsGraphql,
+	ximiSearchAgency,
+} from './ximi';
 import './date';
 
 import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
 import {
 	hsCreateContact,
 	hsCreateContactNote,
+	hsGetContacts,
 	hsGetDeals,
 	hsUpdateContact,
 	hsXimiExists,
@@ -49,7 +58,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			let categorie: 'Cadre' | 'Non cadre' | undefined = undefined;
 
 			if (ximiClient.modality.length) {
-				if (ximiClient.modality[0] === 'M') {
+				if (ximiClient.modality[0] === 'MANDATARY') {
 					categorie = 'Cadre';
 				} else categorie = 'Non cadre';
 			}
@@ -77,7 +86,6 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			//@ts-expect-error
 			let hsClient: HSClient = {
 				id_ximi: ximiID,
-				// ne_e__le: contact.birthDate,
 				age: contact.birthDate && getAge(contact.birthDate),
 				date_of_birth: contact.birthDate,
 				date_de_naissance: contact.birthDate && dateUTC(contact.birthDate),
@@ -88,11 +96,11 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				firstname: contact.firstName,
 				lastname: contact.lastName,
 				city: ximiClient.address?.city,
-				ville: ximiClient.address?.building,
+				ville: ximiClient.address?.city,
 				email: ximiClient.email,
 				date_d_entree: ximiClient.cTime && dateUTC(ximiClient.cTime),
 				zip: ximiClient.address?.zip,
-				besoins: contact.needsStr,
+				ximi_besoins: ximiClient.needsStr,
 				personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				civilite: civilite,
 				phone: ximiClient.homePhone,
@@ -110,18 +118,21 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				situation_familiale_1: contact.familyStatus,
 			};
 
+			let isSigned = false;
+
 			if (ximiClient.stage === 'PROSPECT') {
 				hsClient = {
 					...hsClient,
 					type_de_contact: 'Prospect',
 					type_de_contact_aidadomi: 'Prospect',
 				} as HSProspect;
+
+				if (ximiClient.mandateSigned) {
+					isSigned = true;
+				}
 			}
 
 			hsClient = filterObject(hsClient);
-			if (hsClient.email === 'murielsolente@aidadomi.fr') {
-				console.log(hsClient);
-			}
 
 			const hsExists = await hsXimiExists(`${ximiID}`, hsClient.email);
 
@@ -129,6 +140,18 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				console.log('Property Exists' + ' ' + hsExists);
 
 				await hsUpdateContact(hsExists, hsClient);
+
+				if (isSigned) {
+					const { results: deals } = await hubspotClient.crm.contacts.associationsApi.getAll(hsExists, 'deal');
+
+					for await (const deal of deals) {
+						await hubspotClient.crm.deals.basicApi.update(deal.id, {
+							properties: {
+								dealstage: 'closedwon',
+							},
+						});
+					}
+				}
 			} else {
 				const contactId = await hsCreateContact(hsClient);
 
@@ -202,12 +225,24 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				origin = ximiAgent.contactSource.internalType;
 			}
 
+			let agency = null;
+
+			if (ximiAgent.agency?.length) {
+				agency = ximiAgent.agency[0].name;
+			}
+
+			let skills = null;
+
+			if (ximiAgent?.skills?.length) {
+				skills = ximiAgent.skills.map((skill: any) => skill.name).join(',');
+			}
+
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsProperty: HSIntervenants = {
 				id_ximi: ximiID,
 				type_de_contact: 'Intervenant',
-				// type_de_contact_aidadomi: 'Client',
+				type_de_contact_aidadomi: 'Intervenant',
 				firstname: ximiAgent.firstName,
 				lastname: ximiAgent.lastName,
 				email: ximiAgent.emailAddress1,
@@ -224,16 +259,19 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				date_de_la_derniere_intervention_realisee:
 					ximiAgent.lastInterventionDate && dateUTC(ximiAgent.lastInterventionDate),
 				city: ximiAgent.address?.city,
-				ville: ximiAgent.address?.building,
+				ville: ximiAgent.address?.city,
 				date_de_creation: ximiAgent.cTime && dateUTC(ximiAgent.cTime),
 
-				// besoins: contact.needsStr,
+				ximi_besoins: ximiAgent.needsStr,
 				// personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				// civilite: civilite,
+				ximi_stade: ximiAgent.stage,
 				date_de_la_premiere_intervention_chez_le_client,
 				nom_du_dernier_intervenant,
 				derniere_intervention___nom_prestation: date_de_la_premiere_intervention_chez_le_client,
 				origine_de_la_demande_1: origin,
+				ximi_agency: agency,
+				ximi_competences: skills
 			};
 
 			hsProperty = filterObject(hsProperty);
@@ -272,9 +310,139 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-expect-error
+export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next) => {
+	try {
+		const clientContacts = await hsGetContacts('Client');
+		// const intervenantContacts = await hsGetContacts('Intervenant');
+
+		// const contacts = [...clientContacts, ...intervenantContacts];
+
+		for await (const contactRaw of clientContacts) {
+			const contact = filterObject(contactRaw.properties);
+
+			const title =
+				contact.civilite === 'Madame'
+					? 0
+					: contact.civilite === 'Monsieur'
+					? 1
+					: contact.civilite === 'Mademoiselle'
+					? 1
+					: null;
+
+			const ximiObject = filterObject({
+				Type: 2,
+				Stage: 1,
+				Email: contact.email,
+				HomePhone: contact.phone,
+				Modality: contact.cateogire ? [contact.cateogire === 'Cadre' ? 'MANDATARY' : 'PROVIDER'] : null,
+				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
+				LastMissionEnd: contact.date_de_fin_de_mission,
+				// ContactSource
+				Status: contact.hs_content_membership_status
+					? contact.hs_content_membership_status === 'active'
+						? 'ACTIV'
+						: 'INACTIV'
+					: null,
+				Contact: {
+					Title: title,
+					FirstName: contact.firstname,
+					LastName: contact.lastname,
+					BirthDate: contact.date_of_birth,
+					MobilePhone: contact.phone,
+					FamilyStatus: contact.situation_familiale_1,
+					EmailAddress1: contact.email,
+					Nature: 'Client',
+				},
+				Address: {
+					Zip: contact.zip ?? '',
+					Street1: contact.address ?? 'None',
+					City: contact.city || contact.ville || 'None',
+					// Building:
+				},
+				// Interventions
+				NeedsStr: contact.ximi_besoins,
+				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
+				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
+			});
+
+			await ximiCreateClient(ximiObject);
+		}
+	} catch (err) {
+		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
+
+		if (next) {
+			next(err);
+		}
+	}
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
+export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) => {
+	try {
+		const intervenantContacts = await hsGetContacts('Intervenant');
+
+		for await (const contactRaw of intervenantContacts) {
+			const contact = filterObject(contactRaw.properties);
+
+			const title =
+				contact.civilite === 'Madame'
+					? 0
+					: contact.civilite === 'Monsieur'
+					? 1
+					: contact.civilite === 'Mademoiselle'
+					? 1
+					: null;
+
+			let agency = null;
+			const agencies = await ximiSearchAgency(contact.ximi_agency);
+
+			if (agencies?.length) {
+				agency = agencies[0].Id;
+			}
+
+			const ximiObject = filterObject({
+				EmailAddress1: contact.email,
+				HomePhone: contact.phone,
+				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
+				// ContactSource
+				Status: contact.hs_content_membership_status
+					? contact.hs_content_membership_status === 'active'
+						? 'ACTIV'
+						: 'INACTIV'
+					: null,
+				Title: title,
+				FirstName: contact.firstname,
+				LastName: contact.lastname,
+				BirthDate: contact.date_of_birth,
+				MobilePhone: contact.phone,
+				Address: {
+					Zip: contact.zip ?? '',
+					Street1: contact.address ?? 'None',
+					City: contact.city || contact.ville || 'None',
+					// Building:
+				},
+				AgencyId: agency,
+				// Interventions
+			});
+
+			await ximiCreateAgent(ximiObject);
+		}
+	} catch (err) {
+		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
+
+		if (next) {
+			next(err);
+		}
+	}
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
 export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) => {
 	try {
 		const deals = await hsGetDeals();
+		console.log(deals);
 
 		for await (const deal of deals) {
 			const { results: contactAssocations } = await hubspotClient.crm.deals.associationsApi.getAll(deal.id, 'contact');
@@ -284,46 +452,80 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 			const contactId = contactAssocations[0].id;
 
 			const { properties: contact } = await hubspotClient.crm.contacts.basicApi.getById(contactId, [
+				'age',
+				'date_of_birth',
+				'date_de_naissance',
+				'gir',
+				'categorie',
+				'type_de_contact',
+				'type_de_contact_aidadomi',
 				'firstname',
 				'lastname',
-				'gir',
-				'date_d_entree',
+				'city',
+				'ville',
 				'email',
+				'date_d_entree',
+				'zip',
+				'besoins',
+				'personne_isolee',
 				'civilite',
 				'phone',
 				'mobilephone',
 				'hs_content_membership_status',
-				'date_of_birth',
 				'address',
-				'zip',
-				'city',
+				'date_de_la_derniere_intervention_realisee',
+				'date_de_fin_de_mission',
+				'date_de_la_premiere_intervention_chez_le_client',
+				'nom_du_dernier_intervenant',
+				'derniere_intervention___nom_prestation',
+				'origine_de_la_demande_1',
+				'date_de_creation',
+				'situation_familiale_1',
 			]);
 
-			console.log(contact);
+			const title =
+				contact.civilite === 'Madame'
+					? 0
+					: contact.civilite === 'Monsieur'
+					? 1
+					: contact.civilite === 'Mademoiselle'
+					? 1
+					: null;
 
 			await ximiCreateClient({
 				Type: 2,
-				// 	status: '',
+				Stage: 0,
 				Email: contact.email,
-				// 	homePhone: '',
+				HomePhone: contact.phone,
+				Modality: contact.cateogire ? [contact.cateogire === 'Cadre' ? 'MANDATARY' : 'PROVIDER'] : null,
+				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
+				LastMissionEnd: contact.date_de_fin_de_mission,
+				// ContactSource
+				Status: contact.hs_content_membership_status
+					? contact.hs_content_membership_status === 'active'
+						? 'ACTIV'
+						: 'INACTIV'
+					: null,
 				Contact: {
-					Title: 1,
+					Title: title,
 					FirstName: contact.firstname,
 					LastName: contact.lastname,
 					BirthDate: contact.date_of_birth,
-					// title: contact.civilite,
 					MobilePhone: contact.phone,
-					// familyStatus: '',
+					FamilyStatus: contact.situation_familiale_1,
 					EmailAddress1: contact.email,
+					Nature: 'Client',
 				},
 				Address: {
 					Zip: contact.zip ?? '',
-					Street1: contact.address ?? '',
-					City: contact.city ?? '',
+					Street1: contact.address ?? 'None',
+					City: contact.city || contact.ville || 'None',
+					// Building:
 				},
-				// 	needsStr: '',
-				// 	isIsolated: '',
-				// 	computedGIRSAAD: '',
+				// Interventions
+				NeedsStr: contact.ximi_besoins,
+				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
+				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 			});
 		}
 	} catch (err) {

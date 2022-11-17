@@ -23,7 +23,7 @@ export type HSProperty = {
 	date_de_naissance: Date;
 	date_de_la_premiere_intervention_chez_le_client: Date | undefined;
 	derniere_intervention___nom_prestation: Date | undefined;
-	// hs_createdate: Date
+	ximi_besoins: string;
 };
 
 export type HSClient = HSProperty & {
@@ -51,13 +51,11 @@ export type HSClient = HSProperty & {
 		| 'Bricolage'
 		| 'Assistance/mutuelles'; // Multi select
 
-	besoins: string; // Multi select
+
 	situation_familiale_1: string; // Select
 	personne_isolee: 'true' | 'false';
 	date_de_la_derniere_intervention_realisee: Date | undefined;
 	date_de_fin_de_mission: Date | undefined;
-
-
 };
 
 export type HSProspect = HSClient & {
@@ -89,9 +87,10 @@ export type HSProspect = HSClient & {
 export type HSIntervenants = HSProperty & {
 	type_de_contact: 'Intervenant';
 	type_de_contact_aidadomi: 'Intervenant';
-	stade: string; // Select
 	zip: string;
-	agence: string; // Select
 	competences: string; // Select
 	date_de_la_derniere_intervention_realisee: Date | undefined;
+	ximi_agency: string;
+	ximi_stade: string;
+	ximi_competences: string;
 };

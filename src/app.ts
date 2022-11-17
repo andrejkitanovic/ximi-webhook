@@ -34,3 +34,9 @@ routing(app);
 app.use(errorMiddleware);
 
 connection(app);
+
+// import { ximiSearchAgency } from 'controllers/ximi/index';
+
+// (async function () {
+// 	ximiSearchAgency("")
+// })();

@@ -108,11 +108,73 @@ export const hsGetDeals = async () => {
 		const { results } = await hubspotClient.crm.deals.searchApi.doSearch({
 			filterGroups: [
 				{
-					filters: [{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` }],
+					filters: [
+						// { operator: 'EQ', propertyName: 'dealname', value: 'Jacqueline Michel  prospect' },
+						{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` },
+					],
 				},
 			],
 			sorts: [],
 			properties: ['dealname'],
+			limit: 100,
+			after: 0,
+		});
+
+		return results ?? [];
+	} catch (err: any) {
+		console.log('SEARCH DEAL ERROR', err);
+		return [];
+	}
+};
+
+export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
+	try {
+		const { results } = await hubspotClient.crm.contacts.searchApi.doSearch({
+			filterGroups: [
+				{
+					filters: [
+						{ operator: 'EQ', propertyName: 'email', value: 'chsaintmartin@airfrance.fr' },
+						// { operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` },
+						{ operator: 'EQ', propertyName: 'type_de_contact_aidadomi', value: contactType },
+					],
+				},
+			],
+			sorts: [],
+			properties: [
+				'age',
+				'date_of_birth',
+				'date_de_naissance',
+				'gir',
+				'categorie',
+				'type_de_contact',
+				'type_de_contact_aidadomi',
+				'firstname',
+				'lastname',
+				'city',
+				'ville',
+				'email',
+				'date_d_entree',
+				'zip',
+				'besoins',
+				'personne_isolee',
+				'civilite',
+				'phone',
+				'mobilephone',
+				'hs_content_membership_status',
+				'address',
+				'date_de_la_derniere_intervention_realisee',
+				'date_de_fin_de_mission',
+				'date_de_la_premiere_intervention_chez_le_client',
+				'nom_du_dernier_intervenant',
+				'derniere_intervention___nom_prestation',
+				'origine_de_la_demande_1',
+				'date_de_creation',
+				'situation_familiale_1',
+				'stade',
+				'date_de_la_derniere_intervention_realisee',
+				'ximi_agency',
+				'ximi_stade',
+			],
 			limit: 100,
 			after: 0,
 		});

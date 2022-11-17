@@ -65,12 +65,12 @@ export const ximiGetClientsGraphql = async () => {
 					needsStr
 					isIsolated
 					computedGIRSAAD
+					mandateSigned
 				}
 			}
 		}
 		`,
 	});
-	console.log(data);
 	return data?.data?.clients?.items || [];
 };
 
@@ -109,13 +109,17 @@ export const ximiGetAgentsGraphql = async () => {
 					interventions {
 						startDate
 					}
+					agency {
+						name
+					}
+					skills { 
+						name 
+					}
 				}
 			}
 		}
 		`,
 	});
-	console.log(data);
-
 	return data?.data?.agents?.items || [];
 };
 
@@ -142,3 +146,25 @@ export const ximiCreateClient = async (data: any) => {
 		console.log('ERROR CREATING CONTACT', err);
 	}
 };
+
+export const ximiCreateAgent = async (data: any) => {
+	try {
+		await axios.post(`${env}/api/agents`, data);
+	} catch (err) {
+		console.log('ERROR CREATING AGENT', err);
+	}
+};
+
+export const ximiSearchAgency = async (name: string) => {
+	try {
+		const { data: response } = await axios.get(
+			`${env}/api/agencies?Offset=0&Top=1&ComputeHasMoreRows=1&ComputeHitCount=1&Search=${name}&lastModification=1970-10-13T00:00:00`
+		);
+
+		return response?.Results;
+	} catch (err) {
+		console.log('ERROR CREATING AGENT', err);
+	}
+};
+
+// 0a8ceada-ae72-4821-a935-17b9a911aa90
