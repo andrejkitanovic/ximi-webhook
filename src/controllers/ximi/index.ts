@@ -1,5 +1,8 @@
 import axiosDefault from 'axios';
 
+const LIMIT = 500;
+const OFFSET = 0;
+
 const axios = axiosDefault.create({
 	baseURL: process.env.XIMI_BASE_URL,
 	headers: {
@@ -18,7 +21,7 @@ export const ximiUsrLogin = async () => {
 };
 
 export const ximiGetClients = async () => {
-	const { data } = await axios.get(`${env}/api/clients`);
+	const { data } = await axios.get(`${env}/api/clients?Top=${LIMIT}&Offset=${OFFSET}`);
 	return data;
 };
 
@@ -26,7 +29,7 @@ export const ximiGetClientsGraphql = async () => {
 	const { data } = await axios.post(`${env}/api/graphql`, {
 		Query: `
 		{
-			clients {
+			clients(limit: ${LIMIT}, offset: ${OFFSET}) {
 				items {
 					id
 					cTime
@@ -36,8 +39,15 @@ export const ximiGetClientsGraphql = async () => {
 					homePhone
 					phone
 					modality
+					firstContactDate
 					lastInterventionDate
 					lastMissionEnd
+					missions {
+						label
+					}
+					coverageType {
+						type
+					}
 					contactSource { 
 						internalType
 					}
@@ -62,7 +72,7 @@ export const ximiGetClientsGraphql = async () => {
 							lastName
 						}
 					}
-					needsStr
+					needsDisplay
 					isIsolated
 					computedGIRSAAD
 					mandateSigned
@@ -89,6 +99,7 @@ export const ximiGetAgentsGraphql = async () => {
 					cTime
 					mobilePhone
 					stage
+					firstContactDate
 					lastInterventionDate
 					status
 					emailAddress1

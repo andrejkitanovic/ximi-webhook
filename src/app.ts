@@ -21,6 +21,7 @@ import errorMiddleware from 'middlewares/error';
 import connection from 'helpers/connection';
 
 import routing from 'routes';
+import 'controllers/cron'
 
 const app = express();
 app.use(express.json());
@@ -34,9 +35,3 @@ routing(app);
 app.use(errorMiddleware);
 
 connection(app);
-
-// import { ximiSearchAgency } from 'controllers/ximi/index';
-
-// (async function () {
-// 	ximiSearchAgency("")
-// })();

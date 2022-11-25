@@ -22,15 +22,16 @@ export type HSProperty = {
 	ville: string;
 	date_de_naissance: Date;
 	date_de_la_premiere_intervention_chez_le_client: Date | undefined;
-	derniere_intervention___nom_prestation: Date | undefined;
+	derniere_intervention___nom_prestation: string | undefined;
 	ximi_besoins: string;
+	planning_ximi_contact: string;
 };
 
 export type HSClient = HSProperty & {
 	type_de_contact: 'Client';
 	type_de_contact_aidadomi: 'Client';
-	categorie: 'Cadre' | 'Non cadre' | undefined;
-	categorie_client: 'Mandataire' | 'Prestataire';
+	ximi_categorie: 'Cadre' | 'Non cadre' | undefined;
+	categorie_client: 'Mandataire' | 'Prestataire' | undefined;
 	zip: string;
 	agence: string; // Select
 	segmentation_client: 'PA' | 'PSH' | 'GE' | 'TELEASSISTANCE' | 'JARDI' | 'ENTRETIEN' | 'Assistance/mutuelles';
@@ -50,12 +51,12 @@ export type HSClient = HSProperty & {
 		| 'Jardinage'
 		| 'Bricolage'
 		| 'Assistance/mutuelles'; // Multi select
-
-
+	besoins: string; // Multi select
 	situation_familiale_1: string; // Select
 	personne_isolee: 'true' | 'false';
 	date_de_la_derniere_intervention_realisee: Date | undefined;
 	date_de_fin_de_mission: Date | undefined;
+	type_d_aide__ximi_: string;
 };
 
 export type HSProspect = HSClient & {
@@ -78,7 +79,7 @@ export type HSProspect = HSClient & {
 		| 'Jardinage'
 		| 'Bricolage'
 		| 'Assistance/mutuelles'; // Multi select
-	besoins: string; // Multi select
+
 	situation_familiale: string; // Select
 	personne_isolee: 'true' | 'false';
 	age: number;

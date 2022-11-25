@@ -1,200 +1,248 @@
 ****************
-[19:42:36 20/08/2022]
-"[ERROR]{\"message\":\"Request failed with status code 503\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNTY0YmYxNy04NzRiLTQxZDEtYWI4Mi1mNzk5MzI0MDE4NGIiLCJleHAiOjE2NzE3NDE5NTJ9.Ne4YuhmK78UyOsCKQwp_8XPESu27YlbySo_e_EwK6B3WhwqpDEOiBmF1igv9UD5au2msggKNm39ug2Oy4AvKD9HJL-_lH8KMpXYPFHLazpvw4AykAnDUCDFiVwWPzZFSFAie_ykxMcxijJaas7oySKjWGYU_SU0feGE9HHIjQVkMKfBt_DgsgIlfh8Kndw0t6ev4zVq7AyxjhR33q11-Ql5Ww4P-M8ZRj-Kr6P8ywXYu8nas-ro0Xzq5IdhuL7iuhbxwRDnufDNCeubqK2_o5JBkClRTbibPcSdGHr03U8XHR__T5t2uIsLjxYSybcyyWrt3MMuXuCkkwfdiI672Lg\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/api/clients\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":503}"
-****************
-****************
-[20:08:49 20/08/2022]
-"[ERROR]{\"code\":401,\"body\":{\"status\":\"error\",\"message\":\"Authentication credentials not found. This API supports both API Key and OAuth 2.0 authentication and you can find more details at https://developers.hubspot.com/docs/methods/auth/oauth-overview\",\"correlationId\":\"17944c79-9f8f-4c45-91e9-d941adc22dd5\",\"category\":\"INVALID_AUTHENTICATION\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73dd13928860b30f-BEG\",\"connection\":\"close\",\"content-length\":\"316\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sat, 20 Aug 2022 18:08:49 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=Mtob3QUzBvv3WYsAD1Z3OFHiT2GmfbpRTEYKn0SVvCHHGkKajxdGMpF8XlUPkGrXgdIVOlsY6EihwtPc3v8AmgJ3mYznTxOoID3N3b7BIw5xGNT1Pf0l4T4ggMxNLlED\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-auth-failure\":\"401 Unauthorized\",\"x-hubspot-correlation-id\":\"17944c79-9f8f-4c45-91e9-d941adc22dd5\",\"x-trace\":\"2B56E4F219A57DAE041AB3ABEADE724369B95BF12C000000000000000000\"}}"
-****************
-****************
-[20:09:15 20/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"There was a problem with the request.\",\"correlationId\":\"77d98052-767f-441e-8e01-679fb9f43484\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73dd14365837b01d-BEG\",\"connection\":\"close\",\"content-length\":\"123\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sat, 20 Aug 2022 18:09:15 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=%2B11r4W65z3C3l2HTeOgm%2Bm5XBR%2FRM5jyNv7rD4Du0hWzC4H2lrMW8XxzGU2tbcwkW9Y10T4HwOCPSshWwj%2BFHYfFD%2Fl26uzCDhMtvZGAXD47auxhyN2qsGKY%2BSKEK4XL\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"77d98052-767f-441e-8e01-679fb9f43484\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499999\",\"x-trace\":\"2B4FA9DA8C3F865189CC5547C3E0556E48EA956203000000000000000000\"}}"
-****************
-****************
-[20:10:44 20/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"There was a problem with the request.\",\"correlationId\":\"4df2c2a3-4898-46b6-8698-30df59f4ce5f\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73dd16602b29b311-BEG\",\"connection\":\"close\",\"content-length\":\"123\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sat, 20 Aug 2022 18:10:44 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=WDFpKOnBg3kvG7NPTrJ%2FqeQVjLR8z0mdul4fTyhiKuRNb%2FItqCbebXVzQCoSSM9%2FfV7Zrqp10v5jec2bLZOgN5I0qcuTyfviqj3sfZWe5oOFTdCntz5eETiuk1JffJIO\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"4df2c2a3-4898-46b6-8698-30df59f4ce5f\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499998\",\"x-trace\":\"2B59E735B74FAFDC9F5929F1F24D17240E165A0D34000000000000000000\"}}"
-****************
-****************
-[20:12:13 20/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"There was a problem with the request.\",\"correlationId\":\"afd240f5-2966-43df-8db2-0b7465cd7780\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73dd188cffbdb01d-BEG\",\"connection\":\"close\",\"content-length\":\"123\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sat, 20 Aug 2022 18:12:13 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=rJQekog5Ndq5FU8k7oTsMZSG5TqshN7Di2s1f6QRVpsq2e7CbL83Foqc4v6W4uI2xnPoZOOvxB%2FzfM%2F%2B9oe4jU7O2c2VMVeBCjBrUUs4vhbS428UnHHpDHq0J10wIHsR\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"afd240f5-2966-43df-8db2-0b7465cd7780\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499997\",\"x-trace\":\"2B7BE4EF5D28410B0EB7080532B29BEF9011E6D440000000000000000000\"}}"
-****************
-****************
-[20:12:16 20/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"There was a problem with the request.\",\"correlationId\":\"b0ddf5b8-1570-4654-8491-5e30569fd300\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73dd189f9948b311-BEG\",\"connection\":\"close\",\"content-length\":\"123\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sat, 20 Aug 2022 18:12:16 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=Ln3ZXgCotSSM1nEN0Ksa9J89VDu9CCqqwvET3dhAfKI4Hjq9F78GjHAzWmxxJ1GMx8iKnwgmMlyQP2U3f%2FP4m%2F0hKs%2BtsoRb5wgfr26ndS9d154hbYhL32TZ22%2FEm6pr\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"b0ddf5b8-1570-4654-8491-5e30569fd300\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499996\",\"x-trace\":\"2B39BB3EB999DB6D70CF7D98DC877FC7A7B40508B6000000000000000000\"}}"
-****************
-****************
-[20:16:17 20/08/2022]
+[11:22:08 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[13:22:54 21/08/2022]
-"[ERROR]{\"message\":\"Request failed with status code 503\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNTY0YmYxNy04NzRiLTQxZDEtYWI4Mi1mNzk5MzI0MDE4NGIiLCJleHAiOjE2NzE3NDE5NTJ9.Ne4YuhmK78UyOsCKQwp_8XPESu27YlbySo_e_EwK6B3WhwqpDEOiBmF1igv9UD5au2msggKNm39ug2Oy4AvKD9HJL-_lH8KMpXYPFHLazpvw4AykAnDUCDFiVwWPzZFSFAie_ykxMcxijJaas7oySKjWGYU_SU0feGE9HHIjQVkMKfBt_DgsgIlfh8Kndw0t6ev4zVq7AyxjhR33q11-Ql5Ww4P-M8ZRj-Kr6P8ywXYu8nas-ro0Xzq5IdhuL7iuhbxwRDnufDNCeubqK2_o5JBkClRTbibPcSdGHr03U8XHR__T5t2uIsLjxYSybcyyWrt3MMuXuCkkwfdiI672Lg\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/api/clients\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":503}"
-****************
-****************
-[13:31:59 21/08/2022]
-"[ERROR]{\"message\":\"Request failed with status code 503\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"MIIBCgKCAQEAoJflmMYB3IuNiUuAeVlnMHyYCQLsa7yGHm92VXy1IxvnAvLgIOlKxPWS6ypzqmn8h/l1eRn7cTOtvvK2tbzKouYdYXQ0x3GJyfr931TQF1fOZvrrQ3uzmS5/HYdgsspAMB9wyLBFaU/BycGNUrbvhU3PAwM1jxWemBma+mhwS38PuxCXFvTUKXIO/YfL62HJP4U7rW4lW3IfsASxjAdpVtdNNKgSO1yREL1z03bGo3oPyqm0wbnhy5rbw+6EVY9i5sEu0euqNxAIXasz76TKr2hQXwpwzMowCZUOhHP813/shg0rCuop1pa9FpvF6mEF55xiJDqVQ6Rzj1IbklrbpQIDAQAB\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/api/clients\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":503}"
-****************
-****************
-[13:32:24 21/08/2022]
-"[ERROR]{\"message\":\"Request failed with status code 401\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"MIIBCgKCAQEAoJflmMYB3IuNiUuAeVlnMHyYCQLsa7yGHm92VXy1IxvnAvLgIOlKxPWS6ypzqmn8h/l1eRn7cTOtvvK2tbzKouYdYXQ0x3GJyfr931TQF1fOZvrrQ3uzmS5/HYdgsspAMB9wyLBFaU/BycGNUrbvhU3PAwM1jxWemBma+mhwS38PuxCXFvTUKXIO/YfL62HJP4U7rW4lW3IfsASxjAdpVtdNNKgSO1yREL1z03bGo3oPyqm0wbnhy5rbw+6EVY9i5sEu0euqNxAIXasz76TKr2hQXwpwzMowCZUOhHP813/shg0rCuop1pa9FpvF6mEF55xiJDqVQ6Rzj1IbklrbpQIDAQAB\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/Demo/api/clients\"},\"code\":\"ERR_BAD_REQUEST\",\"status\":401}"
-****************
-****************
-[14:02:56 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Invalid input JSON on line 1, column 15: Cannot deserialize value of type `java.util.LinkedHashMap<java.lang.String,java.lang.String>` from Array value (token `JsonToken.START_ARRAY`)\",\"correlationId\":\"cd374426-6d4b-4475-a104-045895dfe967\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e338fd686ab01d-BEG\",\"connection\":\"close\",\"content-length\":\"269\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:02:56 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=AMwg0KbH5XpQiNTsbGYkGk1S7wqyJ927U8%2Blg1DD2chDeDdj0krv6xjAA0uEfa0thDqVIB9XMBLvbXVhpquOGSDC4r1T9lSKaI3ARTgIGxRNpKUZYtA1enhBO0NEXwt%2F\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"cd374426-6d4b-4475-a104-045895dfe967\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499968\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2B94F9130B644052EE1D27F10AB594DA4916974A8A000000000000000000\"}}"
-****************
-****************
-[14:03:42 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Property values were not valid: [{\\\"isValid\\\":false,\\\"message\\\":\\\"1661083420 is at 5:24:43.420 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_de_la_premiere_intervention_chez_le_client\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"agence was not one of the allowed options: [label: \\\\\\\"Aix en provence\\\\\\\"\\\\nvalue: \\\\\\\"Aix en provence\\\\\\\"\\\\ndisplay_order: 1\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Arles\\\\\\\"\\\\nvalue: \\\\\\\"Arles\\\\\\\"\\\\ndisplay_order: 2\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Aubagne\\\\\\\"\\\\nvalue: \\\\\\\"Aubagne\\\\\\\"\\\\ndisplay_order: 3\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Barjols\\\\\\\"\\\\nvalue: \\\\\\\"Barjols\\\\\\\"\\\\ndisplay_order: 4\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\nvalue: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\ndisplay_order: 5\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateaurenard\\\\\\\"\\\\nvalue: \\\\\\\"Chateaurenard\\\\\\\"\\\\ndisplay_order: 6\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Istres\\\\\\\"\\\\nvalue: \\\\\\\"Istres\\\\\\\"\\\\ndisplay_order: 7\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\nvalue: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\ndisplay_order: 8\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Centre\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Centre\\\\\\\"\\\\ndisplay_order: 9\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Est\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Est\\\\\\\"\\\\ndisplay_order: 10\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Nord\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Nord\\\\\\\"\\\\ndisplay_order: 11\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Sud\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Sud\\\\\\\"\\\\ndisplay_order: 12\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Martigues\\\\\\\"\\\\nvalue: \\\\\\\"Martigues\\\\\\\"\\\\ndisplay_order: 13\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Pertuis\\\\\\\"\\\\nvalue: \\\\\\\"Pertuis\\\\\\\"\\\\ndisplay_order: 14\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint Maximin\\\\\\\"\\\\nvalue: \\\\\\\"Saint Maximin\\\\\\\"\\\\ndisplay_order: 15\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\nvalue: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\ndisplay_order: 16\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\ndisplay_order: 17\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\ndisplay_order: 18\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\nvalue: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\ndisplay_order: 19\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Sorgues\\\\\\\"\\\\nvalue: \\\\\\\"Sorgues\\\\\\\"\\\\ndisplay_order: 20\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Varages\\\\\\\"\\\\nvalue: \\\\\\\"Varages\\\\\\\"\\\\ndisplay_order: 21\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Vitrolles\\\\\\\"\\\\nvalue: \\\\\\\"Vitrolles\\\\\\\"\\\\ndisplay_order: 22\\\\nhidden: false\\\\nread_only: false\\\\n]\\\",\\\"error\\\":\\\"INVALID_OPTION\\\",\\\"name\\\":\\\"agence\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"1661083420 is at 5:24:43.420 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_d_entree\\\"}]\",\"correlationId\":\"4930cd0c-56a7-4d74-abfd-6ce0857fdb09\",\"category\":\"VALIDATION_ERROR\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e33a1a5e18b018-BEG\",\"connection\":\"close\",\"content-length\":\"3223\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:03:42 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=xlv2S61Nf6NtovVTsIgtSdehgeTuSsbA0O5Nn91OhUq3fZtctAoC4s3iwjBpeD2oG3R1%2FZTc6yFiyfM38VVUtvxr1KqxTjA1euaYXy%2Bn6f3jr9FVmwusW0RNmegGeOqX\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"4930cd0c-56a7-4d74-abfd-6ce0857fdb09\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499966\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2BB48CE1EC35A1ACDA553F032F1AE5C84E9991A29D000000000000000000\"}}"
-****************
-****************
-[14:04:54 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Property values were not valid: [{\\\"isValid\\\":false,\\\"message\\\":\\\"1661032800 is at 5:23:52.800 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_de_la_premiere_intervention_chez_le_client\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"agence was not one of the allowed options: [label: \\\\\\\"Aix en provence\\\\\\\"\\\\nvalue: \\\\\\\"Aix en provence\\\\\\\"\\\\ndisplay_order: 1\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Arles\\\\\\\"\\\\nvalue: \\\\\\\"Arles\\\\\\\"\\\\ndisplay_order: 2\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Aubagne\\\\\\\"\\\\nvalue: \\\\\\\"Aubagne\\\\\\\"\\\\ndisplay_order: 3\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Barjols\\\\\\\"\\\\nvalue: \\\\\\\"Barjols\\\\\\\"\\\\ndisplay_order: 4\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\nvalue: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\ndisplay_order: 5\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateaurenard\\\\\\\"\\\\nvalue: \\\\\\\"Chateaurenard\\\\\\\"\\\\ndisplay_order: 6\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Istres\\\\\\\"\\\\nvalue: \\\\\\\"Istres\\\\\\\"\\\\ndisplay_order: 7\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\nvalue: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\ndisplay_order: 8\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Centre\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Centre\\\\\\\"\\\\ndisplay_order: 9\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Est\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Est\\\\\\\"\\\\ndisplay_order: 10\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Nord\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Nord\\\\\\\"\\\\ndisplay_order: 11\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Sud\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Sud\\\\\\\"\\\\ndisplay_order: 12\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Martigues\\\\\\\"\\\\nvalue: \\\\\\\"Martigues\\\\\\\"\\\\ndisplay_order: 13\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Pertuis\\\\\\\"\\\\nvalue: \\\\\\\"Pertuis\\\\\\\"\\\\ndisplay_order: 14\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint Maximin\\\\\\\"\\\\nvalue: \\\\\\\"Saint Maximin\\\\\\\"\\\\ndisplay_order: 15\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\nvalue: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\ndisplay_order: 16\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\ndisplay_order: 17\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\ndisplay_order: 18\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\nvalue: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\ndisplay_order: 19\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Sorgues\\\\\\\"\\\\nvalue: \\\\\\\"Sorgues\\\\\\\"\\\\ndisplay_order: 20\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Varages\\\\\\\"\\\\nvalue: \\\\\\\"Varages\\\\\\\"\\\\ndisplay_order: 21\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Vitrolles\\\\\\\"\\\\nvalue: \\\\\\\"Vitrolles\\\\\\\"\\\\ndisplay_order: 22\\\\nhidden: false\\\\nread_only: false\\\\n]\\\",\\\"error\\\":\\\"INVALID_OPTION\\\",\\\"name\\\":\\\"agence\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"1661032800 is at 5:23:52.800 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_d_entree\\\"}]\",\"correlationId\":\"abdf1572-77b0-4b61-82e3-238455211abd\",\"category\":\"VALIDATION_ERROR\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e33bdac9b5b018-BEG\",\"connection\":\"close\",\"content-length\":\"3223\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:04:54 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=flztNXYE1jve6db39WoXEoOWVaREqdcMdEkNz7%2BqSQUMVru3lK8FCacw497FghPI%2BArknRbkQIlEo9r8L1N1PgJ01dv8RDftG9mKnrk3V2My%2BPdBFzyQPCTck8%2FrSDol\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"abdf1572-77b0-4b61-82e3-238455211abd\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499964\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2B316F09CAAF465B1E3E230D2ED776E570BA6E38B8000000000000000000\"}}"
-****************
-****************
-[14:05:16 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Property values were not valid: [{\\\"isValid\\\":false,\\\"message\\\":\\\"1661032800 is at 5:23:52.800 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_de_la_premiere_intervention_chez_le_client\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"agence was not one of the allowed options: [label: \\\\\\\"Aix en provence\\\\\\\"\\\\nvalue: \\\\\\\"Aix en provence\\\\\\\"\\\\ndisplay_order: 1\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Arles\\\\\\\"\\\\nvalue: \\\\\\\"Arles\\\\\\\"\\\\ndisplay_order: 2\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Aubagne\\\\\\\"\\\\nvalue: \\\\\\\"Aubagne\\\\\\\"\\\\ndisplay_order: 3\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Barjols\\\\\\\"\\\\nvalue: \\\\\\\"Barjols\\\\\\\"\\\\ndisplay_order: 4\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\nvalue: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\ndisplay_order: 5\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateaurenard\\\\\\\"\\\\nvalue: \\\\\\\"Chateaurenard\\\\\\\"\\\\ndisplay_order: 6\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Istres\\\\\\\"\\\\nvalue: \\\\\\\"Istres\\\\\\\"\\\\ndisplay_order: 7\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\nvalue: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\ndisplay_order: 8\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Centre\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Centre\\\\\\\"\\\\ndisplay_order: 9\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Est\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Est\\\\\\\"\\\\ndisplay_order: 10\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Nord\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Nord\\\\\\\"\\\\ndisplay_order: 11\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Sud\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Sud\\\\\\\"\\\\ndisplay_order: 12\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Martigues\\\\\\\"\\\\nvalue: \\\\\\\"Martigues\\\\\\\"\\\\ndisplay_order: 13\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Pertuis\\\\\\\"\\\\nvalue: \\\\\\\"Pertuis\\\\\\\"\\\\ndisplay_order: 14\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint Maximin\\\\\\\"\\\\nvalue: \\\\\\\"Saint Maximin\\\\\\\"\\\\ndisplay_order: 15\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\nvalue: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\ndisplay_order: 16\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\ndisplay_order: 17\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\ndisplay_order: 18\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\nvalue: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\ndisplay_order: 19\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Sorgues\\\\\\\"\\\\nvalue: \\\\\\\"Sorgues\\\\\\\"\\\\ndisplay_order: 20\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Varages\\\\\\\"\\\\nvalue: \\\\\\\"Varages\\\\\\\"\\\\ndisplay_order: 21\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Vitrolles\\\\\\\"\\\\nvalue: \\\\\\\"Vitrolles\\\\\\\"\\\\ndisplay_order: 22\\\\nhidden: false\\\\nread_only: false\\\\n]\\\",\\\"error\\\":\\\"INVALID_OPTION\\\",\\\"name\\\":\\\"agence\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"1661032800 is at 5:23:52.800 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_d_entree\\\"}]\",\"correlationId\":\"cea1a696-7f6f-485a-9c4e-2e871c2af9a3\",\"category\":\"VALIDATION_ERROR\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e33c67cb63b01d-BEG\",\"connection\":\"close\",\"content-length\":\"3223\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:05:16 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=aO3d87b1pDlFSQUkqaRRIQAAS4WdoDZU9tG7P6jpNk7v7shgAff3GPzUuqzhqJ8BGk4DaOsawraDgpLoiUxsBqd2b%2F4RiyJGw1OzsKx%2FD5SYWoAlRD7Vhf7m1VdHpu9J\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"cea1a696-7f6f-485a-9c4e-2e871c2af9a3\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499962\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2B721809BB36665A75D00B7AA02FFBE438B0578977000000000000000000\"}}"
-****************
-****************
-[14:07:53 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Property values were not valid: [{\\\"isValid\\\":false,\\\"message\\\":\\\"1661040000 is at 5:24:0.0 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_de_la_premiere_intervention_chez_le_client\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"agence was not one of the allowed options: [label: \\\\\\\"Aix en provence\\\\\\\"\\\\nvalue: \\\\\\\"Aix en provence\\\\\\\"\\\\ndisplay_order: 1\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Arles\\\\\\\"\\\\nvalue: \\\\\\\"Arles\\\\\\\"\\\\ndisplay_order: 2\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Aubagne\\\\\\\"\\\\nvalue: \\\\\\\"Aubagne\\\\\\\"\\\\ndisplay_order: 3\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Barjols\\\\\\\"\\\\nvalue: \\\\\\\"Barjols\\\\\\\"\\\\ndisplay_order: 4\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\nvalue: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\ndisplay_order: 5\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateaurenard\\\\\\\"\\\\nvalue: \\\\\\\"Chateaurenard\\\\\\\"\\\\ndisplay_order: 6\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Istres\\\\\\\"\\\\nvalue: \\\\\\\"Istres\\\\\\\"\\\\ndisplay_order: 7\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\nvalue: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\ndisplay_order: 8\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Centre\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Centre\\\\\\\"\\\\ndisplay_order: 9\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Est\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Est\\\\\\\"\\\\ndisplay_order: 10\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Nord\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Nord\\\\\\\"\\\\ndisplay_order: 11\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Sud\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Sud\\\\\\\"\\\\ndisplay_order: 12\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Martigues\\\\\\\"\\\\nvalue: \\\\\\\"Martigues\\\\\\\"\\\\ndisplay_order: 13\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Pertuis\\\\\\\"\\\\nvalue: \\\\\\\"Pertuis\\\\\\\"\\\\ndisplay_order: 14\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint Maximin\\\\\\\"\\\\nvalue: \\\\\\\"Saint Maximin\\\\\\\"\\\\ndisplay_order: 15\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\nvalue: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\ndisplay_order: 16\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\ndisplay_order: 17\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\ndisplay_order: 18\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\nvalue: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\ndisplay_order: 19\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Sorgues\\\\\\\"\\\\nvalue: \\\\\\\"Sorgues\\\\\\\"\\\\ndisplay_order: 20\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Varages\\\\\\\"\\\\nvalue: \\\\\\\"Varages\\\\\\\"\\\\ndisplay_order: 21\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Vitrolles\\\\\\\"\\\\nvalue: \\\\\\\"Vitrolles\\\\\\\"\\\\ndisplay_order: 22\\\\nhidden: false\\\\nread_only: false\\\\n]\\\",\\\"error\\\":\\\"INVALID_OPTION\\\",\\\"name\\\":\\\"agence\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"1661040000 is at 5:24:0.0 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_d_entree\\\"}]\",\"correlationId\":\"f614be73-d76e-432d-aea2-e433e357dea1\",\"category\":\"VALIDATION_ERROR\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e340402effb018-BEG\",\"connection\":\"close\",\"content-length\":\"3217\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:07:53 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=AGnmGUnYl%2BPHUWx4E0fcW0ThLNUdH4eiolin8O7uMhp5l%2BTlaXoWye8I2%2BWzQ%2FO9OLDj3GPqHfkz32%2FIB0SRgx2i0MxbcrMdejBGZ2jqSkgLofHwFynEaMzCQlXRcf%2BS\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"f614be73-d76e-432d-aea2-e433e357dea1\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499960\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2B02EB0E8BECBF6CC738A01DD5E0D76DDCD90F3018000000000000000000\"}}"
-****************
-****************
-[14:11:55 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Property values were not valid: [{\\\"isValid\\\":false,\\\"message\\\":\\\"1661091085 is at 5:24:51.85 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_de_la_premiere_intervention_chez_le_client\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"agence was not one of the allowed options: [label: \\\\\\\"Aix en provence\\\\\\\"\\\\nvalue: \\\\\\\"Aix en provence\\\\\\\"\\\\ndisplay_order: 1\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Arles\\\\\\\"\\\\nvalue: \\\\\\\"Arles\\\\\\\"\\\\ndisplay_order: 2\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Aubagne\\\\\\\"\\\\nvalue: \\\\\\\"Aubagne\\\\\\\"\\\\ndisplay_order: 3\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Barjols\\\\\\\"\\\\nvalue: \\\\\\\"Barjols\\\\\\\"\\\\ndisplay_order: 4\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\nvalue: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\ndisplay_order: 5\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateaurenard\\\\\\\"\\\\nvalue: \\\\\\\"Chateaurenard\\\\\\\"\\\\ndisplay_order: 6\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Istres\\\\\\\"\\\\nvalue: \\\\\\\"Istres\\\\\\\"\\\\ndisplay_order: 7\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\nvalue: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\ndisplay_order: 8\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Centre\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Centre\\\\\\\"\\\\ndisplay_order: 9\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Est\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Est\\\\\\\"\\\\ndisplay_order: 10\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Nord\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Nord\\\\\\\"\\\\ndisplay_order: 11\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Sud\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Sud\\\\\\\"\\\\ndisplay_order: 12\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Martigues\\\\\\\"\\\\nvalue: \\\\\\\"Martigues\\\\\\\"\\\\ndisplay_order: 13\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Pertuis\\\\\\\"\\\\nvalue: \\\\\\\"Pertuis\\\\\\\"\\\\ndisplay_order: 14\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint Maximin\\\\\\\"\\\\nvalue: \\\\\\\"Saint Maximin\\\\\\\"\\\\ndisplay_order: 15\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\nvalue: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\ndisplay_order: 16\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\ndisplay_order: 17\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\ndisplay_order: 18\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\nvalue: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\ndisplay_order: 19\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Sorgues\\\\\\\"\\\\nvalue: \\\\\\\"Sorgues\\\\\\\"\\\\ndisplay_order: 20\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Varages\\\\\\\"\\\\nvalue: \\\\\\\"Varages\\\\\\\"\\\\ndisplay_order: 21\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Vitrolles\\\\\\\"\\\\nvalue: \\\\\\\"Vitrolles\\\\\\\"\\\\ndisplay_order: 22\\\\nhidden: false\\\\nread_only: false\\\\n]\\\",\\\"error\\\":\\\"INVALID_OPTION\\\",\\\"name\\\":\\\"agence\\\"},{\\\"isValid\\\":false,\\\"message\\\":\\\"1661091085 is at 5:24:51.85 UTC, not midnight!\\\",\\\"error\\\":\\\"INVALID_DATE\\\",\\\"name\\\":\\\"date_d_entree\\\"}]\",\"correlationId\":\"b48fec96-bbde-4bcb-8fc6-5016972ecc3a\",\"category\":\"VALIDATION_ERROR\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e346243b9eb311-BEG\",\"connection\":\"close\",\"content-length\":\"3221\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:11:55 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=R3lAygiabMaj3hqu3eoKD%2B%2Bu4jid2VXUnPzOwdx9XBD2De2KW1tNgFcqA5iOvHze%2BW30ORL1FIQUqwjav2Fyi5su3z%2FuDqTJP6%2FacHmZpgYoZ9Xqu23tnJ1VEdCFGSJO\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"b48fec96-bbde-4bcb-8fc6-5016972ecc3a\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499958\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2BF6283D52991DE4909A43F39AD7D499E04CF48540000000000000000000\"}}"
-****************
-****************
-[14:14:26 21/08/2022]
-"[ERROR]{\"code\":400,\"body\":{\"status\":\"error\",\"message\":\"Property values were not valid: [{\\\"isValid\\\":false,\\\"message\\\":\\\"agence was not one of the allowed options: [label: \\\\\\\"Aix en provence\\\\\\\"\\\\nvalue: \\\\\\\"Aix en provence\\\\\\\"\\\\ndisplay_order: 1\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Arles\\\\\\\"\\\\nvalue: \\\\\\\"Arles\\\\\\\"\\\\ndisplay_order: 2\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Aubagne\\\\\\\"\\\\nvalue: \\\\\\\"Aubagne\\\\\\\"\\\\ndisplay_order: 3\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Barjols\\\\\\\"\\\\nvalue: \\\\\\\"Barjols\\\\\\\"\\\\ndisplay_order: 4\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\nvalue: \\\\\\\"Chateauneuf les martigues\\\\\\\"\\\\ndisplay_order: 5\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Chateaurenard\\\\\\\"\\\\nvalue: \\\\\\\"Chateaurenard\\\\\\\"\\\\ndisplay_order: 6\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Istres\\\\\\\"\\\\nvalue: \\\\\\\"Istres\\\\\\\"\\\\ndisplay_order: 7\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\nvalue: \\\\\\\"L\\\\\\\\'isle-sur-la-Sorgue\\\\\\\"\\\\ndisplay_order: 8\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Centre\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Centre\\\\\\\"\\\\ndisplay_order: 9\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Est\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Est\\\\\\\"\\\\ndisplay_order: 10\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Nord\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Nord\\\\\\\"\\\\ndisplay_order: 11\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Marseille Sud\\\\\\\"\\\\nvalue: \\\\\\\"Marseille Sud\\\\\\\"\\\\ndisplay_order: 12\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Martigues\\\\\\\"\\\\nvalue: \\\\\\\"Martigues\\\\\\\"\\\\ndisplay_order: 13\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Pertuis\\\\\\\"\\\\nvalue: \\\\\\\"Pertuis\\\\\\\"\\\\ndisplay_order: 14\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint Maximin\\\\\\\"\\\\nvalue: \\\\\\\"Saint Maximin\\\\\\\"\\\\ndisplay_order: 15\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\nvalue: \\\\\\\"Saint-Martin-de-Crau\\\\\\\"\\\\ndisplay_order: 16\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Saint-R\\\\\\\\303\\\\\\\\251my-de-Provence\\\\\\\"\\\\ndisplay_order: 17\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\nvalue: \\\\\\\"Salon-de-Provence\\\\\\\"\\\\ndisplay_order: 18\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\nvalue: \\\\\\\"Simiane-Collongue\\\\\\\"\\\\ndisplay_order: 19\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Sorgues\\\\\\\"\\\\nvalue: \\\\\\\"Sorgues\\\\\\\"\\\\ndisplay_order: 20\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Varages\\\\\\\"\\\\nvalue: \\\\\\\"Varages\\\\\\\"\\\\ndisplay_order: 21\\\\nhidden: false\\\\nread_only: false\\\\n, label: \\\\\\\"Vitrolles\\\\\\\"\\\\nvalue: \\\\\\\"Vitrolles\\\\\\\"\\\\ndisplay_order: 22\\\\nhidden: false\\\\nread_only: false\\\\n]\\\",\\\"error\\\":\\\"INVALID_OPTION\\\",\\\"name\\\":\\\"agence\\\"}]\",\"correlationId\":\"de710abd-5328-407c-bcbd-24aafe636242\",\"category\":\"VALIDATION_ERROR\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"73e349d45b3fb01b-BEG\",\"connection\":\"close\",\"content-length\":\"2913\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 21 Aug 2022 12:14:26 GMT\",\"expect-ct\":\"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=gCAlmQ%2FbSYUVtgb5%2BKKsEnH3a%2BtxbpsuwjFBMaXKZ5k6jnrDuRRS7w8v0SetcpmNWKO69EOsEO3dmPcW0H3xb7ZwNVJsAcKywuQiODAIIzOY%2BHXyVLPo3AUcg3KLNMKB\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"Accept-Encoding\",\"x-hubspot-correlation-id\":\"de710abd-5328-407c-bcbd-24aafe636242\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499956\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2BDD6C4A848F8D66F46476B506CF351BC76FA6EA46000000000000000000\"}}"
-****************
-****************
-[11:04:49 16/10/2022]
-"[ERROR]{\"code\":409,\"body\":{\"status\":\"error\",\"message\":\"Contact already exists. Existing ID: 93451\",\"correlationId\":\"20a355ca-7513-4115-aded-bf801a261160\",\"category\":\"CONFLICT\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"75afa1108b19b018-BEG\",\"connection\":\"close\",\"content-length\":\"150\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 16 Oct 2022 09:04:49 GMT\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=HnGdUMfvbCPRk6CkP46VsLN0tgjTIW3Ah3UNbOCT5R%2FIvJ1hPsOBh1SUjD9VceKGld2bFhaeQffGiSjIVV4aLQiHcw26VO2c4h01U4cqLwCwhNDYxZGOwdspjevs7h9b\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"origin, Accept-Encoding\",\"x-hubspot-correlation-id\":\"20a355ca-7513-4115-aded-bf801a261160\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499978\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2B5A40A8A0C7B728B49851CA1CCAB3ABB1DC1FABFB000000000000000000\"}}"
-****************
-****************
-[11:41:09 16/10/2022]
-"[ERROR]{\"code\":409,\"body\":{\"status\":\"error\",\"message\":\"Contact already exists. Existing ID: 93451\",\"correlationId\":\"d03389f1-64ac-4708-ba10-a5ec9eefb12e\",\"category\":\"CONFLICT\"},\"headers\":{\"access-control-allow-credentials\":\"false\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\",\"cf-cache-status\":\"DYNAMIC\",\"cf-ray\":\"75afd64d6920b01d-BEG\",\"connection\":\"close\",\"content-length\":\"150\",\"content-type\":\"application/json;charset=utf-8\",\"date\":\"Sun, 16 Oct 2022 09:41:09 GMT\",\"nel\":\"{\\\"success_fraction\\\":0.01,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"report-to\":\"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=gvrADfp2ipGJxWahoSDUE5KtopELWInIaAqaGLxL1fhVRRzqVoINVmEFM5arc6bVWjbZnjXwa4Jno5tsOkFsbFPlSaGCpo23F8iNfc9jT9Q5KNPow4S5Zw6psgPbWrGU\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\"server\":\"cloudflare\",\"strict-transport-security\":\"max-age=31536000; includeSubDomains; preload\",\"vary\":\"origin, Accept-Encoding\",\"x-hubspot-correlation-id\":\"d03389f1-64ac-4708-ba10-a5ec9eefb12e\",\"x-hubspot-ratelimit-daily\":\"500000\",\"x-hubspot-ratelimit-daily-remaining\":\"499799\",\"x-hubspot-ratelimit-interval-milliseconds\":\"10000\",\"x-hubspot-ratelimit-max\":\"150\",\"x-hubspot-ratelimit-remaining\":\"149\",\"x-hubspot-ratelimit-secondly\":\"15\",\"x-hubspot-ratelimit-secondly-remaining\":\"14\",\"x-trace\":\"2B70A4C26D48C01F92F6DC7ED1E0446A1634DEBB6F000000000000000000\"}}"
-****************
-****************
-[17:01:22 16/10/2022]
+[11:22:35 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[17:01:26 16/10/2022]
+[11:23:19 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[17:01:35 16/10/2022]
+[11:24:10 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[00:25:07 23/10/2022]
-"[ERROR]{\"message\":\"Request failed with status code 404\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4N2I5N2EwYS1jZDNhLTQ2YTctYmI3Yi1lMGU0Nzg3MDA4MDgiLCJleHAiOjE2OTUzOTMxMzZ9.RIC1p0vHq6qHXvybRIrtn65PnNPGCWnkUTDJW5dI3zwt8SSjYo0mLYtH-9Xys2qhyGT0KdHSq1UDHd5XgbjPqwytD3MVWGck9HuiZ_H1oHypEx06YBvMkZTnCqJXmhcxRIFEOvx3nKsxlUseXbiL-_kySz4WwE6CKmdUkMuicTtYwYDFBWbNp2XmDWjXUHg1_B8r__omrd2vSJQX62kwkiou8GdDK0GN2ZSuXr2UCu1IyVt3N4oNioYhQlSsW0R7K9pXg4JBNj2KJDJnFvG_vCvrqXFYltf2nHNIE1Hi05oaHJ_ZrYRIZx9-jxPiWTyUMG2NUp-5tt7ZGjGNZLtE4A\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/Addi/api/clients/41686/quote\"},\"code\":\"ERR_BAD_REQUEST\",\"status\":404}"
-****************
-****************
-[00:25:27 23/10/2022]
-"[ERROR]{\"message\":\"Request failed with status code 404\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4N2I5N2EwYS1jZDNhLTQ2YTctYmI3Yi1lMGU0Nzg3MDA4MDgiLCJleHAiOjE2OTUzOTMxMzZ9.RIC1p0vHq6qHXvybRIrtn65PnNPGCWnkUTDJW5dI3zwt8SSjYo0mLYtH-9Xys2qhyGT0KdHSq1UDHd5XgbjPqwytD3MVWGck9HuiZ_H1oHypEx06YBvMkZTnCqJXmhcxRIFEOvx3nKsxlUseXbiL-_kySz4WwE6CKmdUkMuicTtYwYDFBWbNp2XmDWjXUHg1_B8r__omrd2vSJQX62kwkiou8GdDK0GN2ZSuXr2UCu1IyVt3N4oNioYhQlSsW0R7K9pXg4JBNj2KJDJnFvG_vCvrqXFYltf2nHNIE1Hi05oaHJ_ZrYRIZx9-jxPiWTyUMG2NUp-5tt7ZGjGNZLtE4A\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/Addi/api/clients/41686/quote\"},\"code\":\"ERR_BAD_REQUEST\",\"status\":404}"
-****************
-****************
-[20:05:01 27/10/2022]
+[11:24:47 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:06:15 27/10/2022]
+[11:25:30 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:14:34 27/10/2022]
+[11:26:20 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:15:03 27/10/2022]
+[11:26:56 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:17:43 27/10/2022]
+[11:27:42 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:18:16 27/10/2022]
+[11:28:25 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:18:55 27/10/2022]
+[11:29:14 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:20:40 27/10/2022]
+[11:29:58 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:21:29 27/10/2022]
+[11:32:13 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:23:40 27/10/2022]
+[11:32:50 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:24:32 27/10/2022]
+[11:33:55 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:25:08 27/10/2022]
+[11:34:56 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:25:40 27/10/2022]
+[11:35:35 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:26:33 27/10/2022]
+[11:36:12 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:27:25 27/10/2022]
+[11:37:01 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:33:13 27/10/2022]
+[11:37:38 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[20:36:47 27/10/2022]
+[11:38:17 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[21:15:19 27/10/2022]
+[11:39:13 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[21:29:46 27/10/2022]
+[11:40:32 24/11/2022]
+"[ERROR]{\"message\":\"Request failed with status code 504\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Content-Type\":\"application/json\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzhmMTdmMC02NTM2LTRiOTctYWNjZi0yYTI5MjIxNmYzZDMiLCJleHAiOjE3MzQ1MzQxNjAsIlBhcnRpdGlvbiI6NX0.RdwUpZdBTl-fL3IPosJt3rZ-9nik7bfiB5InBBXS8xqKbqh4I1-Mt9fTp1F2JeN2pLWJsVSsZgJai8wb2AnIPMKx7g2PENpR3cFPeO8RrlVQU5BO_mYP0slK75nHudX2ggCS7le_LCRpX4xsAbKObksYppgXCHxcYLnXAi7C21wme5HFzMbPsFBFo1ohe3cvI7Y30HSZvh85uo0ngWt1WeuVA_yry60WqT5fLE3A92s8URs59vMqfwhSHvm2ar6FZLP8JtU6-PQtXHb3O-DcyBlmbPevpOOQmuR4aMkxVMyOCIrMJRkKLp7BqaKKuZmDo0jrUpCiNkBE48phpMKx2g\",\"User-Agent\":\"axios/0.27.2\",\"Content-Length\":1049},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"post\",\"url\":\"/Addi/api/graphql\",\"data\":\"{\\\"Query\\\":\\\"\\\\n\\\\t\\\\t{\\\\n\\\\t\\\\t\\\\tclients(limit: 500, offset: 5000) {\\\\n\\\\t\\\\t\\\\t\\\\titems {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tid\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcTime\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstage\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\temail\\\\n\\\\t\\\\t\\\\t\\\\t\\\\thomePhone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tphone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmodality\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tfirstContactDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastInterventionDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastMissionEnd\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmissions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlabel\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcoverageType {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttype\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontactSource { \\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tinternalType\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontact {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbirthDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttitle\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfamilyStatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\temailAddress1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\taddress {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tzip\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstreet1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tcity\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbuilding\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tinterventions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstartDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tagent {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tneedsDisplay\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tisIsolated\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcomputedGIRSAAD\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmandateSigned\\\\n\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t}\\\\n\\\\t\\\\t\\\"}\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":504}"
+****************
+****************
+[11:41:50 24/11/2022]
+"[ERROR]{\"message\":\"Request failed with status code 504\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Content-Type\":\"application/json\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzhmMTdmMC02NTM2LTRiOTctYWNjZi0yYTI5MjIxNmYzZDMiLCJleHAiOjE3MzQ1MzQxNjAsIlBhcnRpdGlvbiI6NX0.RdwUpZdBTl-fL3IPosJt3rZ-9nik7bfiB5InBBXS8xqKbqh4I1-Mt9fTp1F2JeN2pLWJsVSsZgJai8wb2AnIPMKx7g2PENpR3cFPeO8RrlVQU5BO_mYP0slK75nHudX2ggCS7le_LCRpX4xsAbKObksYppgXCHxcYLnXAi7C21wme5HFzMbPsFBFo1ohe3cvI7Y30HSZvh85uo0ngWt1WeuVA_yry60WqT5fLE3A92s8URs59vMqfwhSHvm2ar6FZLP8JtU6-PQtXHb3O-DcyBlmbPevpOOQmuR4aMkxVMyOCIrMJRkKLp7BqaKKuZmDo0jrUpCiNkBE48phpMKx2g\",\"User-Agent\":\"axios/0.27.2\",\"Content-Length\":1049},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"post\",\"url\":\"/Addi/api/graphql\",\"data\":\"{\\\"Query\\\":\\\"\\\\n\\\\t\\\\t{\\\\n\\\\t\\\\t\\\\tclients(limit: 500, offset: 5500) {\\\\n\\\\t\\\\t\\\\t\\\\titems {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tid\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcTime\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstage\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\temail\\\\n\\\\t\\\\t\\\\t\\\\t\\\\thomePhone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tphone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmodality\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tfirstContactDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastInterventionDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastMissionEnd\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmissions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlabel\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcoverageType {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttype\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontactSource { \\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tinternalType\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontact {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbirthDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttitle\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfamilyStatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\temailAddress1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\taddress {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tzip\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstreet1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tcity\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbuilding\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tinterventions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstartDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tagent {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tneedsDisplay\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tisIsolated\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcomputedGIRSAAD\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmandateSigned\\\\n\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t}\\\\n\\\\t\\\\t\\\"}\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":504}"
+****************
+****************
+[11:42:51 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[21:30:20 27/10/2022]
+[11:43:47 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[21:43:22 27/10/2022]
+[11:44:45 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[15:18:26 16/11/2022]
+[11:46:06 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[15:18:28 16/11/2022]
+[11:47:02 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[15:19:24 16/11/2022]
+[11:47:53 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[15:43:02 16/11/2022]
+[11:48:44 24/11/2022]
 "[ERROR]{}"
 ****************
 ****************
-[15:43:06 16/11/2022]
+[11:49:52 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[11:51:13 24/11/2022]
+"[ERROR]{\"message\":\"Request failed with status code 504\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Content-Type\":\"application/json\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzhmMTdmMC02NTM2LTRiOTctYWNjZi0yYTI5MjIxNmYzZDMiLCJleHAiOjE3MzQ1MzQxNjAsIlBhcnRpdGlvbiI6NX0.RdwUpZdBTl-fL3IPosJt3rZ-9nik7bfiB5InBBXS8xqKbqh4I1-Mt9fTp1F2JeN2pLWJsVSsZgJai8wb2AnIPMKx7g2PENpR3cFPeO8RrlVQU5BO_mYP0slK75nHudX2ggCS7le_LCRpX4xsAbKObksYppgXCHxcYLnXAi7C21wme5HFzMbPsFBFo1ohe3cvI7Y30HSZvh85uo0ngWt1WeuVA_yry60WqT5fLE3A92s8URs59vMqfwhSHvm2ar6FZLP8JtU6-PQtXHb3O-DcyBlmbPevpOOQmuR4aMkxVMyOCIrMJRkKLp7BqaKKuZmDo0jrUpCiNkBE48phpMKx2g\",\"User-Agent\":\"axios/0.27.2\",\"Content-Length\":1050},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"post\",\"url\":\"/Addi/api/graphql\",\"data\":\"{\\\"Query\\\":\\\"\\\\n\\\\t\\\\t{\\\\n\\\\t\\\\t\\\\tclients(limit: 500, offset: 10000) {\\\\n\\\\t\\\\t\\\\t\\\\titems {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tid\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcTime\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstage\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\temail\\\\n\\\\t\\\\t\\\\t\\\\t\\\\thomePhone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tphone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmodality\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tfirstContactDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastInterventionDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastMissionEnd\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmissions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlabel\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcoverageType {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttype\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontactSource { \\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tinternalType\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontact {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbirthDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttitle\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfamilyStatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\temailAddress1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\taddress {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tzip\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstreet1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tcity\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbuilding\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tinterventions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstartDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tagent {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tneedsDisplay\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tisIsolated\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcomputedGIRSAAD\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmandateSigned\\\\n\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t}\\\\n\\\\t\\\\t\\\"}\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":504}"
+****************
+****************
+[11:52:36 24/11/2022]
+"[ERROR]{\"message\":\"Request failed with status code 504\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Content-Type\":\"application/json\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzhmMTdmMC02NTM2LTRiOTctYWNjZi0yYTI5MjIxNmYzZDMiLCJleHAiOjE3MzQ1MzQxNjAsIlBhcnRpdGlvbiI6NX0.RdwUpZdBTl-fL3IPosJt3rZ-9nik7bfiB5InBBXS8xqKbqh4I1-Mt9fTp1F2JeN2pLWJsVSsZgJai8wb2AnIPMKx7g2PENpR3cFPeO8RrlVQU5BO_mYP0slK75nHudX2ggCS7le_LCRpX4xsAbKObksYppgXCHxcYLnXAi7C21wme5HFzMbPsFBFo1ohe3cvI7Y30HSZvh85uo0ngWt1WeuVA_yry60WqT5fLE3A92s8URs59vMqfwhSHvm2ar6FZLP8JtU6-PQtXHb3O-DcyBlmbPevpOOQmuR4aMkxVMyOCIrMJRkKLp7BqaKKuZmDo0jrUpCiNkBE48phpMKx2g\",\"User-Agent\":\"axios/0.27.2\",\"Content-Length\":1050},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"post\",\"url\":\"/Addi/api/graphql\",\"data\":\"{\\\"Query\\\":\\\"\\\\n\\\\t\\\\t{\\\\n\\\\t\\\\t\\\\tclients(limit: 500, offset: 10500) {\\\\n\\\\t\\\\t\\\\t\\\\titems {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tid\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcTime\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstage\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tstatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\temail\\\\n\\\\t\\\\t\\\\t\\\\t\\\\thomePhone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tphone\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmodality\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tfirstContactDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastInterventionDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tlastMissionEnd\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmissions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlabel\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcoverageType {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttype\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontactSource { \\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tinternalType\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcontact {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbirthDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\ttitle\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfamilyStatus\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\temailAddress1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\taddress {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tzip\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstreet1\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tcity\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tbuilding\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tinterventions {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tstartDate\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tagent {\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tfirstName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t\\\\tlastName\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tneedsDisplay\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tisIsolated\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tcomputedGIRSAAD\\\\n\\\\t\\\\t\\\\t\\\\t\\\\tmandateSigned\\\\n\\\\t\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t\\\\t}\\\\n\\\\t\\\\t}\\\\n\\\\t\\\\t\\\"}\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":504}"
+****************
+****************
+[11:53:52 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[11:55:00 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[11:56:03 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[11:57:24 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[11:58:29 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[11:59:31 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:00:33 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:01:30 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:02:20 24/11/2022]
+"[ERROR]{\"message\":\"Request failed with status code 504\",\"name\":\"AxiosError\",\"config\":{\"transitional\":{\"silentJSONParsing\":true,\"forcedJSONParsing\":true,\"clarifyTimeoutError\":false},\"transformRequest\":[null],\"transformResponse\":[null],\"timeout\":0,\"xsrfCookieName\":\"XSRF-TOKEN\",\"xsrfHeaderName\":\"X-XSRF-TOKEN\",\"maxContentLength\":-1,\"maxBodyLength\":-1,\"env\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Api-Key\":\"eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzhmMTdmMC02NTM2LTRiOTctYWNjZi0yYTI5MjIxNmYzZDMiLCJleHAiOjE3MzQ1MzQxNjAsIlBhcnRpdGlvbiI6NX0.RdwUpZdBTl-fL3IPosJt3rZ-9nik7bfiB5InBBXS8xqKbqh4I1-Mt9fTp1F2JeN2pLWJsVSsZgJai8wb2AnIPMKx7g2PENpR3cFPeO8RrlVQU5BO_mYP0slK75nHudX2ggCS7le_LCRpX4xsAbKObksYppgXCHxcYLnXAi7C21wme5HFzMbPsFBFo1ohe3cvI7Y30HSZvh85uo0ngWt1WeuVA_yry60WqT5fLE3A92s8URs59vMqfwhSHvm2ar6FZLP8JtU6-PQtXHb3O-DcyBlmbPevpOOQmuR4aMkxVMyOCIrMJRkKLp7BqaKKuZmDo0jrUpCiNkBE48phpMKx2g\",\"User-Agent\":\"axios/0.27.2\"},\"baseURL\":\"https://api.ximi.xelya.io\",\"method\":\"get\",\"url\":\"/Addi/api/clients?Top=500&Offset=15000\"},\"code\":\"ERR_BAD_RESPONSE\",\"status\":504}"
+****************
+****************
+[12:03:28 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:04:39 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:05:51 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:06:47 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:08:05 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:09:04 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:10:16 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:11:15 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:12:33 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:14:14 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:14:59 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:16:02 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:16:55 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:17:52 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:18:49 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:19:33 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:20:25 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:21:13 24/11/2022]
+"[ERROR]{}"
+****************
+****************
+[12:22:07 24/11/2022]
 "[ERROR]{}"
 ****************
