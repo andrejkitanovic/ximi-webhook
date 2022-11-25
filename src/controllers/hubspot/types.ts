@@ -12,6 +12,7 @@ export type HSProperty = {
 	origine_de_la_demande_1: string; // Select
 	phone: string;
 	mobilephone: string;
+	ximi_agency: string;
 	hs_content_membership_status: 'active' | 'inactive';
 	age: number;
 	date_of_birth: string;
@@ -91,7 +92,7 @@ export type HSIntervenants = HSProperty & {
 	zip: string;
 	competences: string; // Select
 	date_de_la_derniere_intervention_realisee: Date | undefined;
-	ximi_agency: string;
+
 	ximi_stade: string;
 	ximi_competences: string;
 };

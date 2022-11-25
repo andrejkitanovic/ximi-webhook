@@ -92,6 +92,12 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				type_d_aide__ximi_ = ximiClient.coverageType.type;
 			}
 
+			let agency = null;
+
+			if (ximiClient.agency?.length) {
+				agency = ximiClient.agency[0].name;
+			}
+
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsClient: HSClient = {
@@ -127,6 +133,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				origine_de_la_demande_1: origin,
 				date_de_creation: ximiClient.cTime && dateUTC(ximiClient.cTime),
 				situation_familiale_1: contact.familyStatus,
+				ximi_agency: agency,
 				type_d_aide__ximi_,
 				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};
