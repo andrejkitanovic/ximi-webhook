@@ -75,6 +75,7 @@ export const ximiGetClientsGraphql = async () => {
 					agency {
 						name
 					}
+					entryDate
 					needsDisplay
 					isIsolated
 					computedGIRSAAD
@@ -111,6 +112,7 @@ export const ximiGetAgentsGraphql = async () => {
 					lastName
 					birthDate
 					title
+					entryDate
 					contactSource { 
 						internalType
 					}

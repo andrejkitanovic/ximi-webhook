@@ -35,9 +35,3 @@ routing(app);
 app.use(errorMiddleware);
 
 connection(app);
-
-import { syncClientsXimiToHS } from 'controllers/sync';
-
-(async function(){
-	await syncClientsXimiToHS();
-}())
