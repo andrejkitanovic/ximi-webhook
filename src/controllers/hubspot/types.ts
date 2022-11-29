@@ -92,7 +92,7 @@ export type HSIntervenants = HSProperty & {
 	zip: string;
 	competences: string; // Select
 	date_de_la_derniere_intervention_realisee: Date | undefined;
-
+	type_de_contrat: string;
 	ximi_stade: string;
 	ximi_competences: string;
 };

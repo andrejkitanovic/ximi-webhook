@@ -123,6 +123,9 @@ export const ximiGetAgentsGraphql = async () => {
 					interventions {
 						startDate
 					}
+					contracts { 
+						type 
+					}
 					agency {
 						name
 					}

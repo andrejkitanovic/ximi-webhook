@@ -116,7 +116,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				email: ximiClient.email,
 				date_d_entree: ximiClient.firstContactDate && datePlus1DayUTC(ximiClient.firstContactDate),
 				zip: ximiClient.address?.zip,
-				besoins: ximiClient.needsDisplay?.replaceAll(', ', ';') ?? undefined,
+				// besoins: ximiClient.needsDisplay?.replaceAll(', ', ';') ?? undefined,
 				ximi_besoins: ximiClient.needsDisplay,
 				personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				civilite: civilite,
@@ -154,6 +154,8 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 
 			hsClient = filterObject(hsClient);
 
+			console.log(hsClient)
+
 			const hsExists = await hsXimiExists(`${ximiID}`, hsClient.email);
 
 			if (hsExists) {
@@ -185,6 +187,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			});
 		}
 	} catch (err) {
+		console.log(err)
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {
@@ -250,7 +253,13 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 			let skills = null;
 
 			if (ximiAgent?.skills?.length) {
-				skills = ximiAgent.skills.map((skill: any) => skill.name).join(',');
+				skills = ximiAgent.skills.map((skill: any) => skill.name).join(';');
+			}
+
+			let typeDeContrat = null;
+
+			if (ximiAgent.contracts?.length) {
+				typeDeContrat = ximiAgent.contracts[0].type;
 			}
 
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -281,6 +290,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				ximi_besoins: ximiAgent.needsDisplay,
 				// personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				// civilite: civilite,
+				type_de_contrat: typeDeContrat,
 				ximi_stade: ximiAgent.stage,
 				date_de_la_premiere_intervention_chez_le_client,
 				nom_du_dernier_intervenant,
