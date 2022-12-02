@@ -9,10 +9,10 @@ export type HSProperty = {
 	email: string;
 	nom_du_dernier_intervenant: string | undefined;
 	civilite: string | null;
-	origine_de_la_demande_1: string; // Select
+	origine_de_la_demande: string; // Select
 	phone: string;
 	mobilephone: string;
-	ximi_agency: string;
+	entite: string;
 	hs_content_membership_status: 'active' | 'inactive';
 	age: number;
 	date_of_birth: string;
@@ -24,7 +24,7 @@ export type HSProperty = {
 	date_de_naissance: Date;
 	date_de_la_premiere_intervention_chez_le_client: Date | undefined;
 	derniere_intervention___nom_prestation: string | undefined;
-	ximi_besoins: string;
+	besoins: string;
 	planning_ximi_contact: string;
 };
 

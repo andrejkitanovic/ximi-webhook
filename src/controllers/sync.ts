@@ -13,7 +13,7 @@ import './date';
 
 import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
 import { hsCreateContact, hsGetContacts, hsGetDeals, hsUpdateContact, hsXimiExists, hubspotClient } from './hubspot';
-import { dateUTC, datePlus1DayUTC, getAge } from './date';
+import { datePlus1DayUTC, dateUTC, getAge } from './date';
 import { filterObject } from 'helpers/filter';
 import { wait } from 'helpers/wait';
 import dayjs from 'dayjs';
@@ -98,6 +98,11 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				agency = ximiClient.agency[0].name;
 			}
 
+			let besoins = null;
+
+			if (ximiClient.needs?.length) {
+				besoins = ximiClient.needs.map((need: any) => need.name).join(';');
+			}
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsClient: HSClient = {
@@ -116,8 +121,8 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				email: ximiClient.email,
 				date_d_entree: ximiClient.entryDate && datePlus1DayUTC(ximiClient.entryDate),
 				zip: ximiClient.address?.zip,
-				// besoins: ximiClient.needsDisplay?.replaceAll(', ', ';') ?? undefined,
-				ximi_besoins: ximiClient.needsDisplay,
+				besoins,
+				// besoins: ximiClient.needsDisplay,
 				personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				civilite: civilite,
 				phone: ximiClient.homePhone,
@@ -130,10 +135,10 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				date_de_la_premiere_intervention_chez_le_client,
 				nom_du_dernier_intervenant,
 				derniere_intervention___nom_prestation,
-				origine_de_la_demande_1: origin,
+				origine_de_la_demande: origin,
 				date_de_creation: ximiClient.cTime && dateUTC(ximiClient.cTime),
 				situation_familiale_1: contact.familyStatus,
-				ximi_agency: agency,
+				entite: agency,
 				type_d_aide__ximi_,
 				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};
@@ -153,8 +158,6 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			}
 
 			hsClient = filterObject(hsClient);
-
-			console.log(hsClient)
 
 			const hsExists = await hsXimiExists(`${ximiID}`, hsClient.email);
 
@@ -187,7 +190,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			});
 		}
 	} catch (err) {
-		console.log(err)
+		console.log(err);
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {
@@ -215,6 +218,10 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 			const ximiID = ximiAgent.id;
 
 			if (!ximiAgent.emailAddress1) continue;
+			if (ximiAgent.stage === 'CANDIDATE') {
+				continue;
+			}
+
 
 			const civilite =
 				ximiAgent.title === 'MRS'
@@ -262,6 +269,12 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				typeDeContrat = ximiAgent.contracts[0].type;
 			}
 
+			let besoins = null;
+
+			if (ximiAgent.skills?.length) {
+				besoins = ximiAgent.skills.map((need: any) => need.name).join(';');
+			}
+
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsProperty: HSIntervenants = {
@@ -271,7 +284,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				firstname: ximiAgent.firstName,
 				lastname: ximiAgent.lastName,
 				email: ximiAgent.emailAddress1,
-				date_d_entree: ximiAgent.entryDate && datePlus1DayUTC(ximiAgent.entryDate),
+				date_d_entree: ximiAgent.entryDate && dateUTC(ximiAgent.entryDate),
 				phone: ximiAgent.homePhone,
 				mobilephone: ximiAgent.ximiAgent,
 				zip: ximiAgent.address?.zip || '',
@@ -287,16 +300,16 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				ville: ximiAgent.address?.city,
 				date_de_creation: ximiAgent.cTime && dateUTC(ximiAgent.cTime),
 
-				ximi_besoins: ximiAgent.needsDisplay,
+				besoins,
 				// personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				// civilite: civilite,
 				type_de_contrat: typeDeContrat,
 				ximi_stade: ximiAgent.stage,
 				date_de_la_premiere_intervention_chez_le_client,
 				nom_du_dernier_intervenant,
-				origine_de_la_demande_1: origin,
-				ximi_agency: agency,
-				ximi_competences: skills,
+				origine_de_la_demande: origin,
+				entite: agency,
+				competences: skills,
 				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};
 
@@ -385,7 +398,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					// Building:
 				},
 				// Interventions
-				// NeedsStr: contact.ximi_besoins,
+				// NeedsStr: contact.besoins,
 				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 			});
@@ -420,7 +433,7 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 					: null;
 
 			let agency = null;
-			const agencies = await ximiSearchAgency(contact.ximi_agency);
+			const agencies = await ximiSearchAgency(contact.entite);
 
 			if (agencies?.length) {
 				agency = agencies[0].Id;
@@ -502,7 +515,7 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 				'date_de_la_premiere_intervention_chez_le_client',
 				'nom_du_dernier_intervenant',
 				'derniere_intervention___nom_prestation',
-				'origine_de_la_demande_1',
+				'origine_de_la_demande',
 				'date_de_creation',
 				'situation_familiale_1',
 			]);
@@ -549,7 +562,7 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 					// Building:
 				},
 				// Interventions
-				// NeedsStr: contact.ximi_besoins,
+				// NeedsStr: contact.besoins,
 				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 			});

@@ -76,6 +76,9 @@ export const ximiGetClientsGraphql = async () => {
 						name
 					}
 					entryDate
+					needs {
+						name
+					}
 					needsDisplay
 					isIsolated
 					computedGIRSAAD
