@@ -110,7 +110,7 @@ export const hsGetDeals = async () => {
 				{
 					filters: [
 						// { operator: 'EQ', propertyName: 'dealname', value: 'Jacqueline Michel  prospect' },
-						{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` },
+						{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}` },
 					],
 				},
 			],

@@ -82,8 +82,8 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 
 			let origin = null;
 
-			if (ximiClient?.contactSource?.internalType) {
-				origin = ximiClient.contactSource.internalType;
+			if (ximiClient?.contactSource?.displayName) {
+				origin = ximiClient.contactSource.displayName;
 			}
 
 			let type_d_aide__ximi_ = undefined;
@@ -94,8 +94,8 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 
 			let agency = null;
 
-			if (ximiClient.agency?.length) {
-				agency = ximiClient.agency[0].name;
+			if (ximiClient.agency) {
+				agency = ximiClient.agency.name;
 			}
 
 			let besoins = null;
@@ -247,8 +247,8 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 			}
 			let origin = null;
 
-			if (ximiAgent?.contactSource?.internalType) {
-				origin = ximiAgent.contactSource.internalType;
+			if (ximiAgent?.contactSource?.displayName) {
+				origin = ximiAgent.contactSource.displayName;
 			}
 
 			let agency = null;

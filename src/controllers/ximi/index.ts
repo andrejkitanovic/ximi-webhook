@@ -49,6 +49,7 @@ export const ximiGetClientsGraphql = async () => {
 						type
 					}
 					contactSource { 
+						displayName
 						internalType
 					}
 					contact {

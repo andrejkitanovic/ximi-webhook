@@ -13,4 +13,10 @@ cron.scheduleJob('15 0 * * *', syncAgentsXimiToHS); // Sync Agents XIMI -> HS
 
 cron.scheduleJob('30 0 * * *', syncContactsHStoXimi); // Sync Contacts HS -> XIMI
 cron.scheduleJob('40 0 * * *', syncAgentsHStoXimi); // Sync Agents HS -> XIMI
-cron.scheduleJob('50 0 * * *', syncDealsHStoXimi); // Sync Deals HS -> XIMI
+
+
+// Every 20 minutes
+cron.scheduleJob('*/20 * * * *', syncDealsHStoXimi); // Sync Deals HS -> XIMI
+
+
+
