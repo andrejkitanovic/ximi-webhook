@@ -38,6 +38,7 @@ export const ximiGetClientsGraphql = async () => {
 					email
 					homePhone
 					phone
+					mobilePhone
 					modality
 					firstContactDate
 					lastInterventionDate
@@ -118,6 +119,7 @@ export const ximiGetAgentsGraphql = async () => {
 					title
 					entryDate
 					contactSource { 
+						displayName
 						internalType
 					}
 					address {

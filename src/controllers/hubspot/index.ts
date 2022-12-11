@@ -169,7 +169,7 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 				'derniere_intervention___nom_prestation',
 				'origine_de_la_demande',
 				'date_de_creation',
-				'situation_familiale_1',
+				'situation_familiale_ximi',
 				'stade',
 				'date_de_la_derniere_intervention_realisee',
 				'entite',

@@ -13,7 +13,7 @@ import './date';
 
 import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
 import { hsCreateContact, hsGetContacts, hsGetDeals, hsUpdateContact, hsXimiExists, hubspotClient } from './hubspot';
-import { datePlus1DayUTC, dateUTC, getAge } from './date';
+import { datePlus1DayUTC, dateUTC, findEarliestDate, getAge } from './date';
 import { filterObject } from 'helpers/filter';
 import { wait } from 'helpers/wait';
 import dayjs from 'dayjs';
@@ -57,20 +57,21 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 
 			if (ximiClient.modality.length) {
 				if (ximiClient.modality[0] === 'PROVIDER') {
-					categorie_client = 'Mandataire';
-				} else categorie_client = 'Prestataire';
+					categorie_client = 'Prestataire';
+				} else categorie_client = 'Mandataire';
 			}
 
 			const interventions = ximiClient.interventions;
 			const missions = ximiClient.missions;
 
-			let date_de_la_premiere_intervention_chez_le_client: Date | undefined = undefined;
+			let date_de_la_premiere_intervention_chez_le_client: number | undefined = undefined;
 			let derniere_intervention___nom_prestation: string | undefined = undefined;
 			let nom_du_dernier_intervenant: string | undefined = undefined;
 
 			if (interventions.length) {
-				date_de_la_premiere_intervention_chez_le_client =
-					interventions[0].startDate && dateUTC(interventions[0].startDate);
+				date_de_la_premiere_intervention_chez_le_client = findEarliestDate(
+					interventions.map((intervention: any) => intervention.startDate)
+				);
 
 				if (interventions[0].agent) {
 					nom_du_dernier_intervenant = `${interventions[0].agent.firstName} ${interventions[0].agent.lastName}`;
@@ -86,10 +87,10 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				origin = ximiClient.contactSource.displayName;
 			}
 
-			let type_d_aide__ximi_ = undefined;
+			let type_d_aide__recupere_de_ximi_ = undefined;
 
 			if (ximiClient.coverageType) {
-				type_d_aide__ximi_ = ximiClient.coverageType.type;
+				type_d_aide__recupere_de_ximi_ = ximiClient.coverageType.type;
 			}
 
 			let agency = null;
@@ -125,8 +126,8 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				// besoins: ximiClient.needsDisplay,
 				personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				civilite: civilite,
-				phone: ximiClient.homePhone,
-				mobilephone: ximiClient.phone,
+				phone: ximiClient.phone,
+				mobilephone: ximiClient.mobilePhone,
 				hs_content_membership_status: ximiClient.status === 'ACTIV' ? 'active' : 'inactive',
 				address: ximiClient.address?.street1 + ' ' + ximiClient.address?.building,
 				date_de_la_derniere_intervention_realisee:
@@ -137,10 +138,10 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				derniere_intervention___nom_prestation,
 				origine_de_la_demande: origin,
 				date_de_creation: ximiClient.cTime && dateUTC(ximiClient.cTime),
-				situation_familiale_1: contact.familyStatus,
+				situation_familiale_ximi: contact.familyStatus,
 				entite: agency,
-				type_d_aide__ximi_,
-				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
+				type_d_aide__recupere_de_ximi_,
+				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};
 
 			let isSigned = false;
@@ -222,7 +223,6 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				continue;
 			}
 
-
 			const civilite =
 				ximiAgent.title === 'MRS'
 					? 'Madame'
@@ -235,12 +235,13 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 			const interventions = ximiAgent.interventions;
 			// const missions = ximiAgent.missions;
 
-			let date_de_la_premiere_intervention_chez_le_client: Date | undefined = undefined;
+			let date_de_la_premiere_intervention_chez_le_client: number | undefined = undefined;
 			let nom_du_dernier_intervenant: string | undefined = undefined;
 
 			if (interventions.length) {
-				date_de_la_premiere_intervention_chez_le_client =
-					interventions[0].startDate && dateUTC(interventions[0].startDate);
+				date_de_la_premiere_intervention_chez_le_client = findEarliestDate(
+					interventions.map((intervention: any) => intervention.startDate)
+				);
 				if (interventions[0].agent) {
 					nom_du_dernier_intervenant = `${interventions[0].agent.firstName} ${interventions[0].agent.lastName}`;
 				}
@@ -269,12 +270,6 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				typeDeContrat = ximiAgent.contracts[0].type;
 			}
 
-			let besoins = null;
-
-			if (ximiAgent.skills?.length) {
-				besoins = ximiAgent.skills.map((need: any) => need.name).join(';');
-			}
-
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsProperty: HSIntervenants = {
@@ -286,7 +281,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				email: ximiAgent.emailAddress1,
 				date_d_entree: ximiAgent.entryDate && dateUTC(ximiAgent.entryDate),
 				phone: ximiAgent.homePhone,
-				mobilephone: ximiAgent.ximiAgent,
+				mobilephone: ximiAgent.mobilePhone,
 				zip: ximiAgent.address?.zip || '',
 				civilite: civilite,
 				hs_content_membership_status: ximiAgent.status === 'ACTIV' ? 'active' : 'inactive',
@@ -300,17 +295,17 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				ville: ximiAgent.address?.city,
 				date_de_creation: ximiAgent.cTime && dateUTC(ximiAgent.cTime),
 
-				besoins,
 				// personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				// civilite: civilite,
-				type_de_contrat: typeDeContrat,
+				type_de_contrat_ximi: typeDeContrat,
+				// type_de_contrat: typeDeContrat,
 				ximi_stade: ximiAgent.stage,
 				date_de_la_premiere_intervention_chez_le_client,
 				nom_du_dernier_intervenant,
 				origine_de_la_demande: origin,
 				entite: agency,
 				competences: skills,
-				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&date=2022-10-16&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
+				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};
 
 			hsProperty = filterObject(hsProperty);
@@ -387,7 +382,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					LastName: contact.lastname,
 					BirthDate: contact.date_of_birth,
 					MobilePhone: contact.phone,
-					FamilyStatus: contact.situation_familiale_1,
+					FamilyStatus: contact.situation_familiale_ximi,
 					EmailAddress1: contact.email,
 					Nature: 'Client',
 				},
@@ -398,7 +393,6 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					// Building:
 				},
 				// Interventions
-				// NeedsStr: contact.besoins,
 				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 			});
@@ -517,7 +511,7 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 				'derniere_intervention___nom_prestation',
 				'origine_de_la_demande',
 				'date_de_creation',
-				'situation_familiale_1',
+				'situation_familiale_ximi',
 			]);
 
 			const title =
@@ -551,7 +545,7 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 					LastName: contact.lastname,
 					BirthDate: contact.date_of_birth,
 					MobilePhone: contact.phone,
-					FamilyStatus: contact.situation_familiale_1,
+					FamilyStatus: contact.situation_familiale_ximi,
 					EmailAddress1: contact.email,
 					Nature: 'Client',
 				},
