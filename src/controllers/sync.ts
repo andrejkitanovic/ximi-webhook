@@ -104,6 +104,16 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			if (ximiClient.needs?.length) {
 				besoins = ximiClient.needs.map((need: any) => need.name).join(';');
 			}
+
+			let nature_du_besoins = undefined;
+
+			if (ximiClient.contractNature) {
+				if (ximiClient.contractNature === 'RECURRENT') {
+					nature_du_besoins = 'Prestation régulière';
+				} else if (ximiClient.contractNature === 'ONE_SHOT') {
+					nature_du_besoins = 'Prestation ponctuelle';
+				}
+			}
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-expect-error
 			let hsClient: HSClient = {
@@ -140,6 +150,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				date_de_creation: ximiClient.cTime && dateUTC(ximiClient.cTime),
 				situation_familiale_ximi: contact.familyStatus,
 				entite: agency,
+				nature_du_besoins,
 				type_d_aide__recupere_de_ximi_,
 				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};

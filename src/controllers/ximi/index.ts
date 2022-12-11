@@ -39,6 +39,7 @@ export const ximiGetClientsGraphql = async () => {
 					homePhone
 					phone
 					mobilePhone
+					contractNature
 					modality
 					firstContactDate
 					lastInterventionDate

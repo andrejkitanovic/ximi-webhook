@@ -26,6 +26,8 @@ export type HSProperty = {
 	derniere_intervention___nom_prestation: string | undefined;
 	besoins: string;
 	planning_ximi_contact: string;
+	nature_du_besoins: string | undefined;
+
 };
 
 export type HSClient = HSProperty & {
@@ -58,6 +60,7 @@ export type HSClient = HSProperty & {
 	date_de_la_derniere_intervention_realisee: Date | undefined;
 	date_de_fin_de_mission: Date | undefined;
 	type_d_aide__recupere_de_ximi_: string;
+	
 };
 
 export type HSProspect = HSClient & {
