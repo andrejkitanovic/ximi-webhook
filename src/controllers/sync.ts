@@ -105,13 +105,13 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				besoins = ximiClient.needs.map((need: any) => need.name).join(';');
 			}
 
-			let nature_du_besoins = undefined;
+			let nature_du_besoin = undefined;
 
 			if (ximiClient.contractNature) {
 				if (ximiClient.contractNature === 'RECURRENT') {
-					nature_du_besoins = 'Prestation régulière';
+					nature_du_besoin = 'Prestation régulière';
 				} else if (ximiClient.contractNature === 'ONE_SHOT') {
-					nature_du_besoins = 'Prestation ponctuelle';
+					nature_du_besoin = 'Prestation ponctuelle';
 				}
 			}
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -138,7 +138,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				civilite: civilite,
 				phone: ximiClient.phone,
 				mobilephone: ximiClient.mobilePhone,
-				hs_content_membership_status: ximiClient.status === 'ACTIV' ? 'active' : 'inactive',
+				hs_content_membership_status: ximiClient.status === 'ACTIVE' ? 'active' : 'inactive',
 				address: ximiClient.address?.street1 + ' ' + ximiClient.address?.building,
 				date_de_la_derniere_intervention_realisee:
 					ximiClient.lastInterventionDate && dateUTC(ximiClient.lastInterventionDate),
@@ -150,7 +150,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				date_de_creation: ximiClient.cTime && dateUTC(ximiClient.cTime),
 				situation_familiale_ximi: contact.familyStatus,
 				entite: agency,
-				nature_du_besoins,
+				nature_du_besoin,
 				type_d_aide__recupere_de_ximi_,
 				planning_ximi_contact: `https://app.ximi.xelya.io/AddiV4/Scheduler?viewType=WEEKLY&mode=Intervention&Clients=${ximiID}&resourceView=AGENT&PriorityAppointment=-1&Agencies=1,19&Types=1,10,11,20,21&InterventionStatus=0,1,2,-3&Services=1`,
 			};
@@ -295,7 +295,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				mobilephone: ximiAgent.mobilePhone,
 				zip: ximiAgent.address?.zip || '',
 				civilite: civilite,
-				hs_content_membership_status: ximiAgent.status === 'ACTIV' ? 'active' : 'inactive',
+				hs_content_membership_status: ximiAgent.status === 'ACTIVE' ? 'active' : 'inactive',
 				age: ximiAgent.birthDate && getAge(ximiAgent.birthDate),
 				date_of_birth: dayjs(ximiAgent.birthDate).format('DD/MM/YYYY'),
 				date_de_naissance: ximiAgent.birthDate && dateUTC(ximiAgent.birthDate),
@@ -384,8 +384,8 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				// ContactSource
 				Status: contact.hs_content_membership_status
 					? contact.hs_content_membership_status === 'active'
-						? 'ACTIV'
-						: 'INACTIV'
+						? 'ACTIVE'
+						: 'INACTIVE'
 					: null,
 				Contact: {
 					Title: title,
@@ -451,8 +451,8 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 				// ContactSource
 				Status: contact.hs_content_membership_status
 					? contact.hs_content_membership_status === 'active'
-						? 'ACTIV'
-						: 'INACTIV'
+						? 'ACTIVE'
+						: 'INACTIVE'
 					: null,
 				Title: title,
 				FirstName: contact.firstname,
@@ -547,8 +547,8 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 				// ContactSource
 				Status: contact.hs_content_membership_status
 					? contact.hs_content_membership_status === 'active'
-						? 'ACTIV'
-						: 'INACTIV'
+						? 'ACTIVE'
+						: 'INACTIVE'
 					: null,
 				Contact: {
 					Title: title,

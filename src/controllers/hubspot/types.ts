@@ -26,7 +26,7 @@ export type HSProperty = {
 	derniere_intervention___nom_prestation: string | undefined;
 	besoins: string;
 	planning_ximi_contact: string;
-	nature_du_besoins: string | undefined;
+	nature_du_besoin: string | undefined;
 
 };
 

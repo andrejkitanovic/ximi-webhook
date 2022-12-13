@@ -133,8 +133,7 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 			filterGroups: [
 				{
 					filters: [
-						{ operator: 'EQ', propertyName: 'email', value: 'chsaintmartin@airfrance.fr' },
-						// { operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` },
+						{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` },
 						{ operator: 'EQ', propertyName: 'type_de_contact_aidadomi', value: contactType },
 					],
 				},
