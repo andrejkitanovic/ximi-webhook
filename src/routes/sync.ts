@@ -1,7 +1,13 @@
 import { Router } from 'express';
 import defineRoutes from 'helpers/defineRoutes';
 
-import { syncAgentsXimiToHS, syncClientsXimiToHS, syncDealsHStoXimi } from 'controllers/sync';
+import {
+	syncAgentsHStoXimi,
+	syncAgentsXimiToHS,
+	syncClientsXimiToHS,
+	syncContactsHStoXimi,
+	syncDealsHStoXimi,
+} from 'controllers/sync';
 
 const router = Router();
 defineRoutes(router, [
@@ -19,6 +25,16 @@ defineRoutes(router, [
 		method: 'get',
 		route: '/deals/hs-ximi',
 		controller: syncDealsHStoXimi,
+	},
+	{
+		method: 'get',
+		route: '/contacts/hs-ximi',
+		controller: syncContactsHStoXimi,
+	},
+	{
+		method: 'get',
+		route: '/agents/hs-ximi',
+		controller: syncAgentsHStoXimi,
 	},
 ]);
 

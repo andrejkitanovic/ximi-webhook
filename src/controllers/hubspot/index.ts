@@ -67,6 +67,7 @@ export const hsCreateContact = async (properties: any) => {
 		const result = await hubspotClient.crm.contacts.basicApi.create({
 			properties,
 		});
+		console.log('√ Created');
 
 		return result.id;
 	} catch (err: any) {
@@ -112,17 +113,21 @@ export const hsGetDeals = async () => {
 			filterGroups: [
 				{
 					filters: [
-						// { operator: 'EQ', propertyName: 'dealname', value: 'Jacqueline Michel  prospect' },
+						// {
+						// 	operator: 'GTE',
+						// 	propertyName: 'createdate',
+						// 	value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
+						// },
 						{
 							operator: 'GTE',
 							propertyName: 'createdate',
-							value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
+							value: `${dateUTC(dayjs().subtract(2, 'day').toString())}`,
 						},
 					],
 				},
 			],
 			sorts: [],
-			properties: ['dealname'],
+			properties: ['dealname', 'pipeline'],
 			limit: 100,
 			after: 0,
 		});

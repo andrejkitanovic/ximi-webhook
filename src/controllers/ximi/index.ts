@@ -1,6 +1,6 @@
 import axiosDefault from 'axios';
 
-const LIMIT = 500; //TODO: MAKE SURE THIS IS 500
+const LIMIT = 10; //TODO: MAKE SURE THIS IS 500
 const OFFSET = 0;
 
 const axios = axiosDefault.create({

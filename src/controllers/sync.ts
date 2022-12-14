@@ -54,7 +54,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 					? 'Madame'
 					: contact.title === 'MR'
 					? 'Monsieur'
-					: contact.title === 'MR'
+					: contact.title === 'MS'
 					? 'Mademoiselle'
 					: null;
 
@@ -142,7 +142,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				civilite: civilite,
 				phone: ximiClient.phone,
 				mobilephone: ximiClient.mobilePhone,
-				hs_content_membership_status: ximiClient.status === 'ACTIVE' ? 'active' : 'inactive',
+				hs_content_membership_status: ximiClient.status === 'ACTIV' ? 'active' : 'inactive',
 				address: ximiClient.address?.street1 + ' ' + ximiClient.address?.building,
 				date_de_la_derniere_intervention_realisee:
 					ximiClient.lastInterventionDate && dateUTC(ximiClient.lastInterventionDate),
@@ -224,6 +224,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-expect-error
 export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) => {
+	console.log('STARTING AGENTS SYNC');
 	try {
 		const { Results: ximiIds } = await ximiGetAgents();
 		let ximiAgents = await ximiGetAgentsGraphql();
@@ -430,6 +431,13 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 			});
 
+			//Seems modality and nature de besoins cannot be updated via REST API
+			//Nor can Type d'aide
+			//Age
+			//Origin needs discussing
+			//Status can't be set
+			//GIR Can't be set
+
 			let contactExists = null;
 
 			contactExists = await ximiHSExists(contact.firstname + ' ' + contact.lastname);
@@ -546,7 +554,8 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 //@ts-expect-error
 export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) => {
 	try {
-		const deals = await hsGetDeals();
+		let deals = await hsGetDeals();
+		deals = deals.filter((deal) => deal.properties.pipeline === 'default');
 
 		for await (const deal of deals) {
 			const { results: contactAssocations } = await hubspotClient.crm.deals.associationsApi.getAll(deal.id, 'contact');
@@ -637,7 +646,6 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 						City: contact.city || contact.ville || 'None',
 					},
 					AgencyId: agency,
-					// Interventions
 					isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 					computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 				})
