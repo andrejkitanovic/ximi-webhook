@@ -1,6 +1,6 @@
 import axiosDefault from 'axios';
 
-const LIMIT = 500;
+const LIMIT = 10; //TODO: MAKE SURE THIS IS 500
 const OFFSET = 0;
 
 const axios = axiosDefault.create({
@@ -165,31 +165,95 @@ export const ximiGetContact = async (LastName: string, FirstName: string, Partit
 	return null;
 };
 
+export const ximiHSExists = async (name: string) => {
+	console.log('SEARCHING XIMI CONTACT', name);
+	const nameAsUrl = encodeURIComponent(name);
+	try {
+		const { data } = await axios.get(
+			`${env}/api/clients?Offset=0&Top=1&ComputeHasMoreRows=1&ComputeHitCount=1&Search=${nameAsUrl}&lastModification=1970-10-13T00:00:00`
+		);
+		return data.Results?.length > 0 ? data.Results[0].Id : false;
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR SEARCHING XIMI CONTACT', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+		} else {
+			console.log('ERROR SEARCHING XIMI CONTACT', err);
+		}
+		return false;
+	}
+};
+
 export const ximiCreateClient = async (data: any) => {
 	try {
+		console.log('Creating Ximi client...');
 		await axios.post(`${env}/api/clients`, data);
-	} catch (err) {
-		console.log('ERROR CREATING CONTACT', err);
+		console.log('Ximi client created');
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR CREATING AGENT', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+			return;
+		} else {
+			console.log('ERROR CREATING CONTACT', err);
+		}
+	}
+};
+
+export const ximiUpdateClient = async (id: string, data: any) => {
+	try {
+		console.log('Updating Ximi client...');
+		await axios.put(`${env}/api/clients/${id}`, data);
+		console.log('Ximi client updated');
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR UPDATING AGENT', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+			return;
+		} else {
+			console.log('ERROR UPDATING CONTACT', err);
+		}
 	}
 };
 
 export const ximiCreateAgent = async (data: any) => {
 	try {
+		console.log('Creating Ximi agent...');
 		await axios.post(`${env}/api/agents`, data);
-	} catch (err) {
-		console.log('ERROR CREATING AGENT', err);
+		console.log('Ximi agent created');
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR CREATING AGENT', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+			return;
+		} else {
+			console.log('ERROR CREATING AGENT', err);
+		}
 	}
 };
 
 export const ximiSearchAgency = async (name: string) => {
+	console.log('SEARCHING AGENCY', name);
+	const nameAsUrl = encodeURIComponent(name);
 	try {
 		const { data: response } = await axios.get(
-			`${env}/api/agencies?Offset=0&Top=1&ComputeHasMoreRows=1&ComputeHitCount=1&Search=${name}&lastModification=1970-10-13T00:00:00`
+			`${env}/api/agencies?Offset=0&Top=1&ComputeHasMoreRows=1&ComputeHitCount=1&Search=${nameAsUrl}&lastModification=1970-10-13T00:00:00`
 		);
 
 		return response?.Results;
-	} catch (err) {
-		console.log('ERROR CREATING AGENT', err);
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR SEARCHING AGENCY', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+			return;
+		} else {
+			console.log('ERROR SEARCHING AGENCY', err);
+		}
 	}
 };
 
