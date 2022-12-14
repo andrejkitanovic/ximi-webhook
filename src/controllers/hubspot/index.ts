@@ -145,12 +145,11 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 			],
 			sorts: [],
 			properties: [
-				//TODO
 				'age',
 				'date_of_birth',
 				'date_de_naissance',
 				'gir',
-				'categorie',
+				'categorie_client',
 				'type_de_contact',
 				'type_de_contact_aidadomi',
 				'firstname',

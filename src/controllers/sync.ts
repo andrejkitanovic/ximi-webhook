@@ -132,7 +132,6 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				date_d_entree: ximiClient.entryDate && datePlus1DayUTC(ximiClient.entryDate),
 				zip: ximiClient.address?.zip,
 				besoins,
-				// besoins: ximiClient.needsDisplay,
 				personne_isolee: ximiClient.isIsolated ? 'true' : 'false',
 				civilite: civilite,
 				phone: ximiClient.phone,
@@ -377,6 +376,13 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					? 3
 					: null;
 
+			let agency = null;
+			const agencies = await ximiSearchAgency(contact.entite);
+
+			if (agencies?.length) {
+				agency = agencies[0].Id;
+			}
+
 			const ximiObject = filterObject({
 				Type: 2,
 				Stage: 1,
@@ -387,7 +393,6 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					: null,
 				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
 				LastMissionEnd: contact.date_de_fin_de_mission,
-				// ContactSource
 				Status: contact.hs_content_membership_status
 					? contact.hs_content_membership_status === 'active'
 						? 'ACTIV'
@@ -396,7 +401,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				Contact: {
 					Title: title,
 					FirstName: contact.firstname,
-					LastName: contact.lastname, //
+					LastName: contact.lastname,
 					BirthDate: contact.date_of_birth,
 					MobilePhone: contact.phone,
 					FamilyStatus: contact.situation_familiale_ximi,
@@ -407,8 +412,8 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					Zip: contact.zip ?? '',
 					Street1: contact.address ?? 'None',
 					City: contact.city || contact.ville || 'None',
-					// Building:
 				},
+				AgencyId: agency,
 				// Interventions
 				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
@@ -434,13 +439,42 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 		for await (const contactRaw of intervenantContacts) {
 			const contact = filterObject(contactRaw.properties);
 
+			let stage = null;
+			if (contact.ximi_stade) {
+				switch (contact.ximi_stade) {
+					case 'CANDIDATE':
+						stage = 0;
+						break;
+					case 'REFUSED_CANDIDATE':
+						stage = 1;
+						break;
+					case 'AGENT':
+						stage = 2;
+						break;
+					case 'LEFT_AGENT':
+						stage = 3;
+						break;
+					case 'FIRED_AGENT':
+						stage = 4;
+						break;
+					case 'EXTERNAL_AGENT':
+						stage = 5;
+						break;
+					case 'ACCEPTED_CANDIDATE':
+						stage = 6;
+						break;
+					default:
+						break;
+				}
+			}
+
 			const title =
 				contact.civilite === 'Madame'
-					? 0
+					? 2
 					: contact.civilite === 'Monsieur'
 					? 1
 					: contact.civilite === 'Mademoiselle'
-					? 1
+					? 3
 					: null;
 
 			let agency = null;
@@ -454,7 +488,6 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 				EmailAddress1: contact.email,
 				HomePhone: contact.phone,
 				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
-				// ContactSource
 				Status: contact.hs_content_membership_status
 					? contact.hs_content_membership_status === 'active'
 						? 'ACTIVE'
@@ -469,10 +502,9 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 					Zip: contact.zip ?? '',
 					Street1: contact.address ?? 'None',
 					City: contact.city || contact.ville || 'None',
-					// Building:
 				},
 				AgencyId: agency,
-				// Interventions
+				Stage: stage,
 			});
 
 			await ximiCreateAgent(ximiObject);
@@ -504,7 +536,7 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 				'date_of_birth',
 				'date_de_naissance',
 				'gir',
-				'categorie',
+				'categorie_client',
 				'type_de_contact',
 				'type_de_contact_aidadomi',
 				'firstname',
@@ -533,50 +565,59 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 
 			const title =
 				contact.civilite === 'Madame'
-					? 0
+					? 2
 					: contact.civilite === 'Monsieur'
 					? 1
 					: contact.civilite === 'Mademoiselle'
-					? 1
+					? 3
 					: null;
 
 			console.log('creating ximi', deal);
 
-			await ximiCreateClient({
-				Type: 2,
-				Stage: 0,
-				Email: contact.email,
-				HomePhone: contact.phone,
-				Modality: contact.cateogire ? [contact.cateogire === 'Cadre' ? 'MANDATARY' : 'PROVIDER'] : null,
-				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
-				LastMissionEnd: contact.date_de_fin_de_mission,
-				// ContactSource
-				Status: contact.hs_content_membership_status
-					? contact.hs_content_membership_status === 'active'
-						? 'ACTIVE'
-						: 'INACTIVE'
-					: null,
-				Contact: {
-					Title: title,
-					FirstName: contact.firstname,
-					LastName: contact.lastname,
-					BirthDate: contact.date_of_birth,
-					MobilePhone: contact.phone,
-					FamilyStatus: contact.situation_familiale_ximi,
-					EmailAddress1: contact.email,
-					Nature: 'Client',
-				},
-				Address: {
-					Zip: contact.zip ?? '',
-					Street1: contact.address ?? 'None',
-					City: contact.city || contact.ville || 'None',
-					// Building:
-				},
-				// Interventions
-				// NeedsStr: contact.besoins,
-				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
-				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
-			});
+			let agency = null;
+			const agencies = await ximiSearchAgency(contact.entite);
+
+			if (agencies?.length) {
+				agency = agencies[0].Id;
+			}
+
+			await ximiCreateClient(
+				filterObject({
+					Type: 2,
+					Stage: 1,
+					Email: contact.email,
+					HomePhone: contact.phone,
+					Modality: contact.categorie_client
+						? [contact.categorie_client === 'Prestataire' ? 'PROVIDER' : 'REPRESENTATIVE']
+						: null,
+					LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
+					LastMissionEnd: contact.date_de_fin_de_mission,
+					Status: contact.hs_content_membership_status
+						? contact.hs_content_membership_status === 'active'
+							? 'ACTIV'
+							: 'INACTIV'
+						: null,
+					Contact: {
+						Title: title,
+						FirstName: contact.firstname,
+						LastName: contact.lastname,
+						BirthDate: contact.date_of_birth,
+						MobilePhone: contact.phone,
+						FamilyStatus: contact.situation_familiale_ximi,
+						EmailAddress1: contact.email,
+						Nature: 'Client',
+					},
+					Address: {
+						Zip: contact.zip ?? '',
+						Street1: contact.address ?? 'None',
+						City: contact.city || contact.ville || 'None',
+					},
+					AgencyId: agency,
+					// Interventions
+					isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
+					computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
+				})
+			);
 		}
 	} catch (err) {
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
@@ -586,3 +627,5 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 		}
 	}
 };
+
+//TODO Add needs/competencies and Origin when syncing back to Ximi. Ask before doing this.
