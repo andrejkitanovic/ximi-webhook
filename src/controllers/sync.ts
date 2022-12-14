@@ -52,7 +52,6 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 					? 'Mademoiselle'
 					: null;
 
-			// let categorie: 'Cadre' | 'Non cadre' | undefined = undefined;
 			let categorie_client: 'Mandataire' | 'Prestataire' | undefined = undefined;
 
 			if (ximiClient.modality.length) {
@@ -157,6 +156,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 
 			let isSigned = false;
 
+			//Check if Prospect and update type_de_contact if necessary
 			if (ximiClient.stage === 'PROSPECT') {
 				hsClient = {
 					...hsClient,
@@ -164,21 +164,25 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 					type_de_contact_aidadomi: 'Prospect',
 				} as HSProspect;
 
+				//Check if Mandate is signed
 				if (ximiClient.mandateSigned) {
 					isSigned = true;
 				}
 			}
 
+			//Filter out null and undefined values
 			hsClient = filterObject(hsClient);
 
+			//Check if contact exists in Hubspot and return its ID
 			const hsExists = await hsXimiExists(`${ximiID}`, hsClient.email);
 
 			if (hsExists) {
-				console.log('Property Exists' + ' ' + hsExists);
+				console.log('Contact Exists:' + ' ' + hsExists);
 
 				await hsUpdateContact(hsExists, hsClient);
 
 				if (isSigned) {
+					//If Mandate is signed, close all deals associated with the contact
 					const { results: deals } = await hubspotClient.crm.contacts.associationsApi.getAll(hsExists, 'deal');
 
 					for await (const deal of deals) {
@@ -324,7 +328,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 			const hsExists = await hsXimiExists(`${ximiID}`, hsProperty.email);
 
 			if (hsExists) {
-				console.log(`Property Exists ${hsExists}`);
+				console.log(`Contact exists: ${hsExists}`);
 
 				await hsUpdateContact(hsExists, hsProperty);
 			} else {
