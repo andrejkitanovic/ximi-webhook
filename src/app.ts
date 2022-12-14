@@ -21,7 +21,9 @@ import errorMiddleware from 'middlewares/error';
 import connection from 'helpers/connection';
 
 import routing from 'routes';
-import 'controllers/cron'
+import { syncClientsXimiToHS } from 'controllers/sync';
+// import 'controllers/cron';
+syncClientsXimiToHS();
 
 const app = express();
 app.use(express.json());
@@ -35,4 +37,3 @@ routing(app);
 app.use(errorMiddleware);
 
 connection(app);
-

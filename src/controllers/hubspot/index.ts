@@ -45,6 +45,7 @@ export const hsSearchByEmail = async (email: string) => {
 	}
 };
 
+// This function searches for a contact in Hubspot using two different criteria: an ximiID and an email address. If a contact is found using either of these two criteria, the function returns the contact's id. If no contact is found or an error occurs, the function returns true.
 export const hsXimiExists = async (ximiID: string, email: string) => {
 	try {
 		const filterId = searchFilter({ value: ximiID, properties: ['id_ximi'] });
@@ -110,7 +111,11 @@ export const hsGetDeals = async () => {
 				{
 					filters: [
 						// { operator: 'EQ', propertyName: 'dealname', value: 'Jacqueline Michel  prospect' },
-						{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}` },
+						{
+							operator: 'GTE',
+							propertyName: 'createdate',
+							value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
+						},
 					],
 				},
 			],
