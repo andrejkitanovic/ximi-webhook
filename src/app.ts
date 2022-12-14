@@ -21,7 +21,7 @@ import errorMiddleware from 'middlewares/error';
 import connection from 'helpers/connection';
 
 import routing from 'routes';
-// import 'controllers/cron';
+import 'controllers/cron';
 
 const app = express();
 app.use(express.json());
