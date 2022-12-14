@@ -370,11 +370,11 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 
 			const title =
 				contact.civilite === 'Madame'
-					? 0
+					? 2
 					: contact.civilite === 'Monsieur'
 					? 1
 					: contact.civilite === 'Mademoiselle'
-					? 1
+					? 3
 					: null;
 
 			const ximiObject = filterObject({
@@ -382,19 +382,21 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				Stage: 1,
 				Email: contact.email,
 				HomePhone: contact.phone,
-				Modality: contact.cateogire ? [contact.cateogire === 'Cadre' ? 'MANDATARY' : 'PROVIDER'] : null,
+				Modality: contact.categorie_client
+					? [contact.categorie_client === 'Prestataire' ? 'PROVIDER' : 'REPRESENTATIVE']
+					: null,
 				LastInterventionDate: contact.date_de_la_derniere_intervention_realisee,
 				LastMissionEnd: contact.date_de_fin_de_mission,
 				// ContactSource
 				Status: contact.hs_content_membership_status
 					? contact.hs_content_membership_status === 'active'
-						? 'ACTIVE'
-						: 'INACTIVE'
+						? 'ACTIV'
+						: 'INACTIV'
 					: null,
 				Contact: {
 					Title: title,
 					FirstName: contact.firstname,
-					LastName: contact.lastname,
+					LastName: contact.lastname, //
 					BirthDate: contact.date_of_birth,
 					MobilePhone: contact.phone,
 					FamilyStatus: contact.situation_familiale_ximi,

@@ -145,6 +145,7 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 			],
 			sorts: [],
 			properties: [
+				//TODO
 				'age',
 				'date_of_birth',
 				'date_de_naissance',
