@@ -7,7 +7,9 @@ import {
 	ximiGetAgentsGraphql,
 	ximiGetClients,
 	ximiGetClientsGraphql,
+	ximiHSExists,
 	ximiSearchAgency,
+	ximiUpdateClient,
 } from './ximi';
 import './date';
 
@@ -25,9 +27,13 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 		const { Results: ximiIds } = await ximiGetClients();
 		let ximiClients = await ximiGetClientsGraphql();
 
+		//Adds the client ID from REST API to the client object from GraphQL API
 		ximiClients = ximiClients.map((client: any) => {
+			//Searches through clients from REST API to find the item where GraphQLId from REST API matches client.id from GraphQL API
+			//Saves the ID
 			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === client.id)?.Id;
 
+			//Returns GraphQL client with id from REST API
 			return {
 				...client,
 				id,
@@ -204,6 +210,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 				message: 'Synced clients and propsects [XIMI] -> [HS]',
 			});
 		}
+		console.log('Synced clients and propsects [XIMI] -> [HS]');
 	} catch (err) {
 		console.log(err);
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
@@ -346,6 +353,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 				message: 'Synced agents [XIMI] -> [HS]',
 			});
 		}
+		console.log('Synced agents [XIMI] -> [HS]');
 	} catch (err) {
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
@@ -377,7 +385,10 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					: null;
 
 			let agency = null;
-			const agencies = await ximiSearchAgency(contact.entite);
+			let agencies = null;
+			if (contact.entite) {
+				agencies = await ximiSearchAgency(contact.entite);
+			}
 
 			if (agencies?.length) {
 				agency = agencies[0].Id;
@@ -419,7 +430,20 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
 			});
 
-			await ximiCreateClient(ximiObject);
+			let contactExists = null;
+
+			contactExists = await ximiHSExists(contact.firstname + ' ' + contact.lastname);
+
+			if (contactExists) {
+				console.log(`Contact exists: ${contactExists}`);
+
+				await ximiUpdateClient(contactExists, ximiObject);
+			} else {
+				const ximiID = await ximiCreateClient(ximiObject);
+				console.log('Ximi Client Created' + ' ' + ximiID);
+			}
+
+			// await ximiCreateClient(ximiObject);
 		}
 	} catch (err) {
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
@@ -504,7 +528,7 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 					City: contact.city || contact.ville || 'None',
 				},
 				AgencyId: agency,
-				Stage: stage,
+				// Stage: stage, //!!This cannot be changed by the API
 			});
 
 			await ximiCreateAgent(ximiObject);

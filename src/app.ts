@@ -21,9 +21,11 @@ import errorMiddleware from 'middlewares/error';
 import connection from 'helpers/connection';
 
 import routing from 'routes';
-import { syncClientsXimiToHS } from 'controllers/sync';
+import { syncAgentsHStoXimi, syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
 // import 'controllers/cron';
-syncClientsXimiToHS();
+// syncClientsXimiToHS();
+// syncContactsHStoXimi();
+syncAgentsHStoXimi();
 
 const app = express();
 app.use(express.json());

@@ -53,6 +53,8 @@ export const hsXimiExists = async (ximiID: string, email: string) => {
 
 		const emailResult = await hsSearchByEmail(email);
 
+		console.log('search contact ' + ximiID + ' ' + email + ' ' + resultId.results?.[0]?.id + ' ' + emailResult);
+
 		return resultId.results?.[0]?.id || emailResult;
 	} catch (err: any) {
 		console.error('SEARCH CONTACT ERROR');
