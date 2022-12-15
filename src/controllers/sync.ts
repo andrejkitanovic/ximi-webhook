@@ -7,7 +7,9 @@ import {
 	ximiGetAgentsGraphql,
 	ximiGetClients,
 	ximiGetClientsGraphql,
+	ximiGetRecentAgentsGraphql,
 	ximiGetRecentClientsGraphql,
+	ximiHSAgentExists,
 	ximiHSExists,
 	ximiSearchAgency,
 	ximiUpdateClient,
@@ -264,16 +266,31 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	console.log('STARTING AGENTS SYNC');
 	try {
-		const { Results: ximiIds } = await ximiGetAgents();
-		let ximiAgents = await ximiGetAgentsGraphql();
-		ximiAgents = ximiAgents.map((agent: any) => {
-			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === agent.id).Id;
+		// const { Results: ximiIds } = await ximiGetAgents();
+		const ximiAgents = await ximiGetRecentAgentsGraphql();
+		// ximiAgents = ximiAgents.map((agent: any) => {
+		// 	const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === agent.id).Id;
 
-			return {
-				...agent,
-				id,
-			};
-		});
+		// 	return {
+		// 		...agent,
+		// 		id,
+		// 	};
+		// });
+
+		for await (const agent of ximiAgents) {
+			const id = await ximiHSAgentExists(agent.firstName + ' ' + agent.lastName);
+
+			if (!id) {
+				console.log('no id found');
+				continue;
+			}
+
+			agent.id = id;
+
+			await wait(500);
+		}
+
+		console.log('✅ IDs retrieved', ximiAgents.length);
 
 		for await (const ximiAgent of ximiAgents) {
 			const ximiID = ximiAgent.id;

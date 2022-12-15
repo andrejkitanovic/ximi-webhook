@@ -225,6 +225,109 @@ export const ximiGetAgents = async () => {
 	return data;
 };
 
+export const ximiGetRecentAgentsGraphql = async () => {
+	console.log('GETTING RECENTLY MODIFIED AGENTS');
+	// Initialize empty array to hold fetched clients
+	const agents = [];
+
+	// Initialize cursor for pagination
+	let cursor = 0;
+
+	// Initialize flag to track when to stop fetching
+	let keepFetching = true;
+
+	const currentTime = dayjs();
+
+	// Fetch clients in batches of 50 until the most recently modified client
+	// in the current batch is older than 2 hours
+	while (keepFetching) {
+		console.log('FETCHING MOST RECENT AGENTS XIMI...');
+		const { data } = await axios.post(`${env}/api/graphql`, {
+			Query: `
+			{
+				agents(limit:${PAGINATION_SIZE}, offset:${cursor} sortBy:mTime_DESC) {
+					items {
+						id
+						mPrincipal {
+							displayName
+						}
+						mTime
+						cTime
+						mobilePhone
+						stage
+						firstContactDate
+						lastInterventionDate
+						status
+						emailAddress1
+						homePhone
+						firstName
+						lastName
+						birthDate
+						title
+						entryDate
+						contactSource { 
+							displayName
+							internalType
+						}
+						address {
+							zip
+							street1
+							city
+							building
+						}
+						interventions {
+							startDate
+						}
+						contracts { 
+							type 
+						}
+						agency {
+							name
+						}
+						skills { 
+							name 
+						}
+					}
+				}
+			}
+		`,
+		});
+
+		// Filter out any records modified by the API_Production account
+		const fetchedRecords = data?.data?.agents?.items || [];
+
+		const filteredRecords = fetchedRecords.filter((agent: any) => {
+			// console.log('Agent', `${agent.firstName} ${agent.lastName}`);
+			// console.log('#', agent.mPrincipal.displayName);
+			//!Dayjs is 2 hours behind, so adding to hours to dayjs brings it to SA time. mTIme is 1 hour behind SA time, so adding 3 hours
+			// console.log('T', dayjs(agent.mTime).add(3, 'hour').toString());
+			// console.log('Current Time', currentTime.add(2, 'hour').toString());
+			const isApi = agent.mPrincipal?.displayName === 'API_Production';
+			const isOlderThan2Hours = currentTime.diff(dayjs(agent.mTime).add(1, 'hour'), 'hour') >= 2;
+			return !isApi && !isOlderThan2Hours;
+		});
+		// console.log('filteredRecords', filteredRecords.length);
+
+		// Add fetched agent to the array
+		agents.push(...filteredRecords);
+
+		// Update the cursor for the next iteration
+		cursor += PAGINATION_SIZE;
+
+		// Use dayjs to check if the most recently modified client in the current batch
+		// is older than 2 hours. If so, set the flag to stop fetching.
+		// console.log(data?.data?.clients?.items[0]?.mTime, cursor);
+		if (dayjs().diff(dayjs(data?.data?.agents?.items[0]?.mTime).add(1, 'hour'), 'hour') >= 2) {
+			keepFetching = false;
+		}
+
+		await wait(500);
+	}
+
+	// Return the array of fetched agents
+	return agents;
+};
+
 export const ximiGetAgentsGraphql = async () => {
 	const { data } = await axios.post(`${env}/api/graphql`, {
 		Query: `
@@ -307,6 +410,27 @@ export const ximiHSExists = async (name: string) => {
 			console.log(err.response.data);
 		} else {
 			console.log('ERROR SEARCHING XIMI CONTACT', err);
+		}
+		return false;
+	}
+};
+
+export const ximiHSAgentExists = async (name: string) => {
+	console.log('SEARCHING XIMI AGENT', name);
+	const nameAsUrl = encodeURIComponent(name);
+	try {
+		const { data } = await axios.get(
+			`${env}/api/agents?Offset=0&Top=1&ComputeHasMoreRows=1&ComputeHitCount=1&Search=${nameAsUrl}&lastModification=1970-10-13T00:00:00`
+		);
+		console.log('XIMI AGENT FOUND', data.Results?.length > 0 ? data.Results[0].Id : false);
+		return data.Results?.length > 0 ? data.Results[0].Id : false;
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR SEARCHING XIMI AGENT', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+		} else {
+			console.log('ERROR SEARCHING XIMI AGENT', err);
 		}
 		return false;
 	}
