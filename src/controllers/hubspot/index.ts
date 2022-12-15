@@ -63,6 +63,7 @@ export const hsXimiExists = async (ximiID: string, email: string) => {
 };
 
 export const hsCreateContact = async (properties: any) => {
+	properties.last_modified_by_api = dayjs();
 	try {
 		const result = await hubspotClient.crm.contacts.basicApi.create({
 			properties,
@@ -77,6 +78,7 @@ export const hsCreateContact = async (properties: any) => {
 };
 
 export const hsUpdateContact = async (id: string, properties: any) => {
+	properties.last_modified_by_api = dayjs();
 	try {
 		console.log('update contact ' + id + ' ' + properties?.email);
 		const result = await hubspotClient.crm.contacts.basicApi.update(id, {

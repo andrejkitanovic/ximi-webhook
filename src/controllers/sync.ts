@@ -7,6 +7,7 @@ import {
 	ximiGetAgentsGraphql,
 	ximiGetClients,
 	ximiGetClientsGraphql,
+	ximiGetRecentClientsGraphql,
 	ximiHSExists,
 	ximiSearchAgency,
 	ximiUpdateClient,
@@ -24,21 +25,58 @@ import dayjs from 'dayjs';
 //@ts-expect-error
 export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	try {
-		const { Results: ximiIds } = await ximiGetClients();
-		let ximiClients = await ximiGetClientsGraphql();
+		// const { Results: ximiIds } = await ximiGetClients();
+		const ximiClients = await ximiGetRecentClientsGraphql();
 
 		//Adds the client ID from REST API to the client object from GraphQL API
-		ximiClients = ximiClients.map((client: any) => {
-			//Searches through clients from REST API to find the item where GraphQLId from REST API matches client.id from GraphQL API
-			//Saves the ID
-			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === client.id)?.Id;
+		// ximiClients = ximiClients.map(async (client: any) => {
+		// 	//Searches through clients from REST API to find the item where GraphQLId from REST API matches client.id from GraphQL API
+		// 	//Saves the ID
+		// 	// const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === client.id)?.Id;
 
-			//Returns GraphQL client with id from REST API
-			return {
-				...client,
-				id,
-			};
-		});
+		// 	const id = await ximiHSExists(client.contact?.firstName + ' ' + client.contact?.lastName);
+
+		// 	if (!id) {
+		// 		console.log('no id found');
+		// 		return;
+		// 	}
+
+		// 	await wait(500);
+
+		// 	//Returns GraphQL client with id from REST API
+		// 	return {
+		// 		...client,
+		// 		id,
+		// 	};
+		// });
+
+		// ximiClients.forEach(async (client: any) => {
+		// 	const id = await ximiHSExists(client.contact?.firstName + ' ' + client.contact?.lastName);
+
+		// 	if (!id) {
+		// 		console.log('no id found');
+		// 		return;
+		// 	}
+
+		// 	client.id = id;
+
+		// 	await wait(500);
+		// });
+
+		for await (const client of ximiClients) {
+			const id = await ximiHSExists(client.contact?.firstName + ' ' + client.contact?.lastName);
+
+			if (!id) {
+				console.log('no id found');
+				continue;
+			}
+
+			client.id = id;
+
+			await wait(500);
+		}
+
+		console.log('✅ IDs retrieved', ximiClients.length);
 
 		for await (const ximiClient of ximiClients) {
 			const { contact } = ximiClient;
@@ -471,34 +509,34 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 		for await (const contactRaw of intervenantContacts) {
 			const contact = filterObject(contactRaw.properties);
 
-			let stage = null;
-			if (contact.ximi_stade) {
-				switch (contact.ximi_stade) {
-					case 'CANDIDATE':
-						stage = 0;
-						break;
-					case 'REFUSED_CANDIDATE':
-						stage = 1;
-						break;
-					case 'AGENT':
-						stage = 2;
-						break;
-					case 'LEFT_AGENT':
-						stage = 3;
-						break;
-					case 'FIRED_AGENT':
-						stage = 4;
-						break;
-					case 'EXTERNAL_AGENT':
-						stage = 5;
-						break;
-					case 'ACCEPTED_CANDIDATE':
-						stage = 6;
-						break;
-					default:
-						break;
-				}
-			}
+			// let stage = null;
+			// if (contact.ximi_stade) {
+			// 	switch (contact.ximi_stade) {
+			// 		case 'CANDIDATE':
+			// 			stage = 0;
+			// 			break;
+			// 		case 'REFUSED_CANDIDATE':
+			// 			stage = 1;
+			// 			break;
+			// 		case 'AGENT':
+			// 			stage = 2;
+			// 			break;
+			// 		case 'LEFT_AGENT':
+			// 			stage = 3;
+			// 			break;
+			// 		case 'FIRED_AGENT':
+			// 			stage = 4;
+			// 			break;
+			// 		case 'EXTERNAL_AGENT':
+			// 			stage = 5;
+			// 			break;
+			// 		case 'ACCEPTED_CANDIDATE':
+			// 			stage = 6;
+			// 			break;
+			// 		default:
+			// 			break;
+			// 	}
+			// }
 
 			const title =
 				contact.civilite === 'Madame'
