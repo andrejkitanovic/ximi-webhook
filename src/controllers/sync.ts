@@ -3,10 +3,6 @@ import { writeInFile } from 'helpers/writeInFile';
 import {
 	ximiCreateAgent,
 	ximiCreateClient,
-	ximiGetAgents,
-	ximiGetAgentsGraphql,
-	ximiGetClients,
-	ximiGetClientsGraphql,
 	ximiGetRecentAgentsGraphql,
 	ximiGetRecentClientsGraphql,
 	ximiHSAgentExists,
@@ -424,6 +420,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next) => {
 	try {
 		const clientContacts = await hsGetContacts('Client');
+		// console.log('clientContacts', clientContacts[0].properties);
 		// const intervenantContacts = await hsGetContacts('Intervenant');
 
 		// const contacts = [...clientContacts, ...intervenantContacts];
