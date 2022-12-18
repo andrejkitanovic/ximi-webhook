@@ -11,6 +11,8 @@ import {
 	ximiUpdateClient,
 } from './ximi';
 import './date';
+import skillsJson from '../skills.json';
+import contactOriginJson from '../contactSources.json';
 
 import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
 import { hsCreateContact, hsGetContacts, hsGetDeals, hsUpdateContact, hsXimiExists, hubspotClient } from './hubspot';
@@ -447,6 +449,17 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				agency = agencies[0].Id;
 			}
 
+			const contactNeeds = contact.besoins ? contact.besoins.split(';').map((need: string) => need.trim()) : [];
+
+			//match each contactNeed to an item in skills.json by matching it to the Name field in the json file
+			const needs = contactNeeds.map((need: string) => {
+				const skill = skillsJson.find((skill: any) => skill.Name === need);
+				return skill?.Id;
+			});
+
+			const contactOrigin = contactOriginJson.find((origin: any) => origin.Code === contact.origine_de_la_demande);
+			const sourceId = contactOrigin?.Id;
+
 			const ximiObject = filterObject({
 				Type: 2,
 				Stage: 1,
@@ -481,6 +494,8 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				// Interventions
 				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
+				NeedsIds: needs,
+				SourceId: sourceId,
 			});
 
 			//Seems modality and nature de besoins cannot be updated via REST API
@@ -506,6 +521,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 			// await ximiCreateClient(ximiObject);
 		}
 	} catch (err) {
+		console.log(err);
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {
@@ -568,6 +584,17 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 				agency = agencies[0].Id;
 			}
 
+			const contactNeeds = contact.besoins.split(';').map((need: string) => need.trim());
+
+			//match each contactNeed to an item in skills.json by matching it to the Name field in the json file
+			const needs = contactNeeds.map((need: string) => {
+				const skill = skillsJson.find((skill: any) => skill.Name === need);
+				return skill?.Id;
+			});
+
+			const contactOrigin = contactOriginJson.find((origin: any) => origin.Code === contact.origine_de_la_demande);
+			const sourceId = contactOrigin?.Id;
+
 			const ximiObject = filterObject({
 				EmailAddress1: contact.email,
 				HomePhone: contact.phone,
@@ -588,6 +615,8 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 					City: contact.city || contact.ville || 'None',
 				},
 				AgencyId: agency,
+				NeedsIds: needs,
+				SourceId: sourceId,
 				// Stage: stage, //!!This cannot be changed by the API
 			});
 

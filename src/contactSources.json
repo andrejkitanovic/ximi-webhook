@@ -1,0 +1,772 @@
+[
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Annonce Pôle emploi",
+		"Status": -1,
+		"Id": 73,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo3Mw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Presse rédactionnelle",
+		"Status": -1,
+		"Id": 72,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo3Mg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "E-mailing",
+		"Status": -1,
+		"Id": 71,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo3MQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Parrainage",
+		"Status": -1,
+		"Id": 70,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo3MA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Médecin / Assistante sociale",
+		"Status": -1,
+		"Id": 69,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2OQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Site internet",
+		"Status": -1,
+		"Id": 68,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2OA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Autres réseaux sociaux",
+		"Status": 0,
+		"Id": 67,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2Nw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Instagram",
+		"Status": 0,
+		"Id": 66,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2Ng"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Facebook",
+		"Status": 0,
+		"Id": 65,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2NQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Linkedin",
+		"Status": 0,
+		"Id": 64,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2NA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Sourcing envoyé par les partenaires",
+		"Status": -1,
+		"Id": 63,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2Mw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Cooptation",
+		"Status": -1,
+		"Id": 62,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2Mg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Réunion d’information partenaires",
+		"Status": 0,
+		"Id": 60,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2MA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Journée recrutement",
+		"Status": -1,
+		"Id": 59,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1OQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Jobdating",
+		"Status": 0,
+		"Id": 58,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1OA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Jobboards",
+		"Status": -1,
+		"Id": 57,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1Nw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Journée recrutement AIDADOMI",
+		"Status": 0,
+		"Id": 56,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1Ng"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Rachat de société",
+		"Status": 0,
+		"Id": 55,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1NQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1, 2],
+			"Value": 7
+		},
+		"Code": "newsletter",
+		"Status": 0,
+		"Id": 54,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1NA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Hopps",
+		"Status": 0,
+		"Id": 53,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1Mw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Météojob",
+		"Status": 0,
+		"Id": 52,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1Mg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Indeed",
+		"Status": 0,
+		"Id": 51,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1MQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "IMA",
+		"Status": 0,
+		"Id": 50,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1MA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Parrainage client",
+		"Status": 0,
+		"Id": 48,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0OA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Autres partenaires de l'emploi",
+		"Status": 0,
+		"Id": 47,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0Nw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "PLIE",
+		"Status": 0,
+		"Id": 46,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0Ng"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "RAM, crèches, centre aéré",
+		"Status": 0,
+		"Id": 45,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0NQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Inter-parcours Handicap 13 ou autre réseau handicap",
+		"Status": 0,
+		"Id": 44,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0NA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "SSIAD",
+		"Status": -1,
+		"Id": 43,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0Mw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Médecin, Infirmiers, kiné et autres libéraux",
+		"Status": 0,
+		"Id": 42,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0Mg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Evaluateurs  Caisses de retraites",
+		"Status": 0,
+		"Id": 41,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0MQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Asistante sociale hôpitaux",
+		"Status": 0,
+		"Id": 40,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0MA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Assistante sociale MDPH",
+		"Status": 0,
+		"Id": 39,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozOQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Assistante sociale CD",
+		"Status": 0,
+		"Id": 38,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozOA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Pôle info senior, Maia, plateforme territoriale d'appui, CLIC",
+		"Status": 0,
+		"Id": 37,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozNw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Réseaux de partenaires institutionnels et associatifs (SSIAD, SAMSAH, EEAP…)",
+		"Status": 0,
+		"Id": 36,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozNg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Flyer ou affiche  AIDADOMI commerces et pharmacie",
+		"Status": 0,
+		"Id": 35,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozNQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Flyer AIDADOMI boîtes aux lettres",
+		"Status": 0,
+		"Id": 34,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozNA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1, 2],
+			"Value": 7
+		},
+		"Code": "Internet",
+		"Status": 0,
+		"Id": 33,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozMw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1, 2],
+			"Value": 7
+		},
+		"Code": "Autre",
+		"Status": 0,
+		"Id": 32,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozMg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1, 2],
+			"Value": 7
+		},
+		"Code": "Bouche à oreille",
+		"Status": 0,
+		"Id": 31,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozMQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Parrainage salarié",
+		"Status": 0,
+		"Id": 30,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTozMA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [2],
+			"Value": 4
+		},
+		"Code": "Evènements",
+		"Status": 0,
+		"Id": 29,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyOQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [2],
+			"Value": 4
+		},
+		"Code": "Réseaux de partenaires",
+		"Status": 0,
+		"Id": 28,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyOA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1, 2],
+			"Value": 7
+		},
+		"Code": "Site internet AIDADOMI",
+		"Status": 0,
+		"Id": 27,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyNw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1, 2],
+			"Value": 7
+		},
+		"Code": "Inconnue",
+		"Status": 0,
+		"Id": 26,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyNg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Pôle emploi",
+		"Status": 0,
+		"Id": 25,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyNQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Candidature spontanée",
+		"Status": 0,
+		"Id": 24,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyNA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Réseaux sociaux",
+		"Status": 0,
+		"Id": 23,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyMw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Salon",
+		"Status": 0,
+		"Id": 22,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyMg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [1],
+			"Value": 2
+		},
+		"Code": "Annonces écoles",
+		"Status": 0,
+		"Id": 20,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToyMA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Appel téléphonique",
+		"Status": -1,
+		"Id": 19,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxOQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Prescripteurs/Partenariat",
+		"Status": -1,
+		"Id": 18,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxOA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Communication",
+		"Status": -1,
+		"Id": 17,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxNw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Publicité journaux",
+		"Status": 0,
+		"Id": 16,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxNg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Brochures",
+		"Status": -1,
+		"Id": 15,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxNQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Mail",
+		"Status": -1,
+		"Id": 14,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxNA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "CE",
+		"Status": 0,
+		"Id": 13,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxMw"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "CLIC-CCAS-PPE",
+		"Status": -1,
+		"Id": 12,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxMg"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Assistante sociale",
+		"Status": 0,
+		"Id": 11,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxMQ"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Tiers-payeurs",
+		"Status": -1,
+		"Id": 10,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToxMA"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Plateforme SAP",
+		"Status": -1,
+		"Id": 9,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo5"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 2],
+			"Value": 5
+		},
+		"Code": "Autre agence du réseau",
+		"Status": -1,
+		"Id": 8,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo4"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Mutuelle",
+		"Status": 0,
+		"Id": 7,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo3"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Pages jaunes",
+		"Status": 0,
+		"Id": 6,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo2"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Osapi.fr",
+		"Status": -1,
+		"Id": 5,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo1"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Aladom.fr",
+		"Status": 0,
+		"Id": 4,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTo0"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Vitrine",
+		"Status": 0,
+		"Id": 3,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToz"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0, 1],
+			"Value": 3
+		},
+		"Code": "Véhicule de société",
+		"Status": 0,
+		"Id": 2,
+		"GraphQLId": "Q29udGFjdFNvdXJjZToy"
+	},
+	{
+		"Type": {
+			"IsEmpty": false,
+			"Values": [0],
+			"Value": 1
+		},
+		"Code": "Action commerciale",
+		"Status": -1,
+		"Id": 1,
+		"GraphQLId": "Q29udGFjdFNvdXJjZTox"
+	}
+]
