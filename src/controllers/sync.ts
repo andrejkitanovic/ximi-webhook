@@ -83,7 +83,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			const { contact } = ximiClient;
 			const ximiID = ximiClient.id;
 
-			if (!ximiClient.email) continue;
+			// if (!ximiClient.email) continue;
 			if (ximiClient.stage === 'LOST') {
 				continue;
 			}
@@ -218,7 +218,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			hsClient = filterObject(hsClient);
 
 			//Check if contact exists in Hubspot and return its ID
-			const hsExists = await hsXimiExists(`${ximiID}`, hsClient.email);
+			const hsExists = await hsXimiExists(`${ximiID}`);
 
 			if (hsExists) {
 				console.log('Contact Exists:' + ' ' + hsExists);
@@ -386,7 +386,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 
 			hsProperty = filterObject(hsProperty);
 
-			const hsExists = await hsXimiExists(`${ximiID}`, hsProperty.email);
+			const hsExists = await hsXimiExists(`${ximiID}`);
 
 			if (hsExists) {
 				console.log(`Contact exists: ${hsExists}`);
