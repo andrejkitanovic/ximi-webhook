@@ -3,15 +3,17 @@ import { writeInFile } from 'helpers/writeInFile';
 import {
 	ximiCreateAgent,
 	ximiCreateClient,
-	ximiGetAgents,
-	ximiGetAgentsGraphql,
-	ximiGetClients,
-	ximiGetClientsGraphql,
+	ximiGetRecentAgentsGraphql,
+	ximiGetRecentClientsGraphql,
+	ximiHSAgentExists,
 	ximiHSExists,
 	ximiSearchAgency,
+	ximiUpdateAgent,
 	ximiUpdateClient,
 } from './ximi';
 import './date';
+import skillsJson from '../skills.json';
+import contactOriginJson from '../contactSources.json';
 
 import { HSClient, HSIntervenants, HSProspect } from './hubspot/types';
 import { hsCreateContact, hsGetContacts, hsGetDeals, hsUpdateContact, hsXimiExists, hubspotClient } from './hubspot';
@@ -24,27 +26,64 @@ import dayjs from 'dayjs';
 //@ts-expect-error
 export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	try {
-		const { Results: ximiIds } = await ximiGetClients();
-		let ximiClients = await ximiGetClientsGraphql();
+		// const { Results: ximiIds } = await ximiGetClients();
+		const ximiClients = await ximiGetRecentClientsGraphql();
 
 		//Adds the client ID from REST API to the client object from GraphQL API
-		ximiClients = ximiClients.map((client: any) => {
-			//Searches through clients from REST API to find the item where GraphQLId from REST API matches client.id from GraphQL API
-			//Saves the ID
-			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === client.id)?.Id;
+		// ximiClients = ximiClients.map(async (client: any) => {
+		// 	//Searches through clients from REST API to find the item where GraphQLId from REST API matches client.id from GraphQL API
+		// 	//Saves the ID
+		// 	// const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === client.id)?.Id;
 
-			//Returns GraphQL client with id from REST API
-			return {
-				...client,
-				id,
-			};
-		});
+		// 	const id = await ximiHSExists(client.contact?.firstName + ' ' + client.contact?.lastName);
+
+		// 	if (!id) {
+		// 		console.log('no id found');
+		// 		return;
+		// 	}
+
+		// 	await wait(500);
+
+		// 	//Returns GraphQL client with id from REST API
+		// 	return {
+		// 		...client,
+		// 		id,
+		// 	};
+		// });
+
+		// ximiClients.forEach(async (client: any) => {
+		// 	const id = await ximiHSExists(client.contact?.firstName + ' ' + client.contact?.lastName);
+
+		// 	if (!id) {
+		// 		console.log('no id found');
+		// 		return;
+		// 	}
+
+		// 	client.id = id;
+
+		// 	await wait(500);
+		// });
+
+		for await (const client of ximiClients) {
+			const id = await ximiHSExists(client.contact?.firstName + ' ' + client.contact?.lastName);
+
+			if (!id) {
+				console.log('no id found');
+				continue;
+			}
+
+			client.id = id;
+
+			await wait(500);
+		}
+
+		console.log('✅ IDs retrieved', ximiClients.length);
 
 		for await (const ximiClient of ximiClients) {
 			const { contact } = ximiClient;
 			const ximiID = ximiClient.id;
 
-			if (!ximiClient.email) continue;
+			// if (!ximiClient.email) continue;
 			if (ximiClient.stage === 'LOST') {
 				continue;
 			}
@@ -179,7 +218,7 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 			hsClient = filterObject(hsClient);
 
 			//Check if contact exists in Hubspot and return its ID
-			const hsExists = await hsXimiExists(`${ximiID}`, hsClient.email);
+			const hsExists = await hsXimiExists(`${ximiID}`);
 
 			if (hsExists) {
 				console.log('Contact Exists:' + ' ' + hsExists);
@@ -226,16 +265,31 @@ export const syncClientsXimiToHS: RequestHandler | any = async (req, res, next) 
 export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) => {
 	console.log('STARTING AGENTS SYNC');
 	try {
-		const { Results: ximiIds } = await ximiGetAgents();
-		let ximiAgents = await ximiGetAgentsGraphql();
-		ximiAgents = ximiAgents.map((agent: any) => {
-			const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === agent.id).Id;
+		// const { Results: ximiIds } = await ximiGetAgents();
+		const ximiAgents = await ximiGetRecentAgentsGraphql();
+		// ximiAgents = ximiAgents.map((agent: any) => {
+		// 	const id = ximiIds.find(({ GraphQLId }: any) => GraphQLId === agent.id).Id;
 
-			return {
-				...agent,
-				id,
-			};
-		});
+		// 	return {
+		// 		...agent,
+		// 		id,
+		// 	};
+		// });
+
+		for await (const agent of ximiAgents) {
+			const id = await ximiHSAgentExists(agent.firstName + ' ' + agent.lastName);
+
+			if (!id) {
+				console.log('no id found');
+				continue;
+			}
+
+			agent.id = id;
+
+			await wait(500);
+		}
+
+		console.log('✅ IDs retrieved', ximiAgents.length);
 
 		for await (const ximiAgent of ximiAgents) {
 			const ximiID = ximiAgent.id;
@@ -332,7 +386,7 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 
 			hsProperty = filterObject(hsProperty);
 
-			const hsExists = await hsXimiExists(`${ximiID}`, hsProperty.email);
+			const hsExists = await hsXimiExists(`${ximiID}`);
 
 			if (hsExists) {
 				console.log(`Contact exists: ${hsExists}`);
@@ -369,11 +423,15 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next) => {
 	try {
 		const clientContacts = await hsGetContacts('Client');
+		const prospectContacts = await hsGetContacts('Prospect');
+		// console.log('clientContacts', clientContacts[0].properties);
 		// const intervenantContacts = await hsGetContacts('Intervenant');
 
-		// const contacts = [...clientContacts, ...intervenantContacts];
+		const contacts = [...clientContacts, ...prospectContacts];
 
-		for await (const contactRaw of clientContacts) {
+		console.log('contacts', contacts.length);
+
+		for await (const contactRaw of contacts) {
 			const contact = filterObject(contactRaw.properties);
 
 			const title =
@@ -395,6 +453,17 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				agency = agencies[0].Id;
 			}
 
+			const contactNeeds = contact.besoins ? contact.besoins.split(';').map((need: string) => need.trim()) : [];
+
+			//match each contactNeed to an item in skills.json by matching it to the Name field in the json file
+			const needs = contactNeeds.map((need: string) => {
+				const skill = skillsJson.find((skill: any) => skill.Name === need);
+				return skill?.Id;
+			});
+
+			const contactOrigin = contactOriginJson.find((origin: any) => origin.Code === contact.origine_de_la_demande);
+			const sourceId = contactOrigin?.Id;
+
 			const ximiObject = filterObject({
 				Type: 2,
 				Stage: 1,
@@ -415,7 +484,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					FirstName: contact.firstname,
 					LastName: contact.lastname,
 					BirthDate: contact.date_of_birth,
-					MobilePhone: contact.phone,
+					MobilePhone: contact.mobilephone,
 					FamilyStatus: contact.situation_familiale_ximi,
 					EmailAddress1: contact.email,
 					Nature: 'Client',
@@ -429,6 +498,8 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 				// Interventions
 				isIsolated: contact.personne_isolee === 'true' ? true : contact.personne_isolee === 'false' ? false : null,
 				computedGIRSAAD: contact.gir ? (parseInt(contact.gir) > 0 ? parseInt(contact.gir) : 0) : null,
+				NeedsIds: needs,
+				SourceId: sourceId,
 			});
 
 			//Seems modality and nature de besoins cannot be updated via REST API
@@ -454,6 +525,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 			// await ximiCreateClient(ximiObject);
 		}
 	} catch (err) {
+		console.log(err);
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {
@@ -516,6 +588,26 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 				agency = agencies[0].Id;
 			}
 
+			// const contactNeeds = contact.besoins.split(';').map((need: string) => need.trim());
+			const contactCompetences = contact.competences
+				? contact.competences.split(';').map((need: string) => need.trim())
+				: [];
+
+			//match each contactNeed to an item in skills.json by matching it to the Name field in the json file
+			const skills = contactCompetences.map((competence: string) => {
+				const skill = skillsJson.find((skill: any) => skill.Name === competence);
+				// return skill?.Id;
+				return {
+					Id: skill?.Id,
+					Active: skill?.Active,
+					Comments: skill?.Comments,
+					Name: skill?.Name,
+				};
+			});
+
+			const contactOrigin = contactOriginJson.find((origin: any) => origin.Code === contact.origine_de_la_demande);
+			const sourceId = contactOrigin?.Id;
+
 			const ximiObject = filterObject({
 				EmailAddress1: contact.email,
 				HomePhone: contact.phone,
@@ -536,12 +628,28 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 					City: contact.city || contact.ville || 'None',
 				},
 				AgencyId: agency,
+				Skills: skills,
+				SourceId: sourceId,
 				// Stage: stage, //!!This cannot be changed by the API
 			});
 
-			await ximiCreateAgent(ximiObject);
+			// await ximiCreateAgent(ximiObject);
+
+			let agentExists = null;
+
+			agentExists = await ximiHSAgentExists(contact.firstname + ' ' + contact.lastname);
+
+			if (agentExists) {
+				console.log(`Contact exists: ${agentExists}`);
+				await ximiUpdateAgent(agentExists, stage ? { ...ximiObject, Stage: stage } : ximiObject);
+			} else {
+				console.log(`Contact doesn't exist: ${agentExists}`);
+				await ximiCreateAgent(ximiObject);
+			}
 		}
 	} catch (err) {
+		console.log(err);
+
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {
@@ -652,6 +760,8 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 			);
 		}
 	} catch (err) {
+		console.log(err);
+
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {

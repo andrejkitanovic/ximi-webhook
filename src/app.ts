@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import moduleAlias from 'module-alias';
+// import dayjs from 'dayjs';
 
 dotenv.config();
 moduleAlias.addAliases({
@@ -21,7 +22,23 @@ import errorMiddleware from 'middlewares/error';
 import connection from 'helpers/connection';
 
 import routing from 'routes';
+// import { ximiGetRecentClientsGraphql } from 'controllers/ximi';
+// import { syncAgentsHStoXimi, syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
 import 'controllers/cron';
+// syncClientsXimiToHS();
+// syncAgentsXimiToHS();
+// syncAgentsHStoXimi();
+// syncContactsHStoXimi();
+// ximiGetRecentClientsGraphql()
+// 	.then((res) =>
+// 		console.log(
+// 			dayjs(res[res.length - 1].mTime)
+// 				.add(3, 'hour')
+// 				.toString()
+// 		)
+// 	)
+// 	.catch((err) => console.log(err));
+// syncClientsXimiToHS();
 
 const app = express();
 app.use(express.json());

@@ -46,23 +46,26 @@ export const hsSearchByEmail = async (email: string) => {
 };
 
 // This function searches for a contact in Hubspot using two different criteria: an ximiID and an email address. If a contact is found using either of these two criteria, the function returns the contact's id. If no contact is found or an error occurs, the function returns true.
-export const hsXimiExists = async (ximiID: string, email: string) => {
+export const hsXimiExists = async (ximiID: string) => {
 	try {
 		const filterId = searchFilter({ value: ximiID, properties: ['id_ximi'] });
 		const resultId = await hubspotClient.crm.contacts.searchApi.doSearch(filterId);
 
-		const emailResult = await hsSearchByEmail(email);
+		// const emailResult = await hsSearchByEmail(email);
 
-		console.log('search contact ' + ximiID + ' ' + email + ' ' + resultId.results?.[0]?.id + ' ' + emailResult);
+		// console.log('search contact ' + ximiID + ' ' + email + ' ' + resultId.results?.[0]?.id + ' ' + emailResult);
 
-		return resultId.results?.[0]?.id || emailResult;
+		const res: string = resultId.results?.[0]?.id;
+
+		return res as string;
 	} catch (err: any) {
 		console.error('SEARCH CONTACT ERROR');
-		return true;
+		return null;
 	}
 };
 
 export const hsCreateContact = async (properties: any) => {
+	properties.last_modified_by_api = dayjs();
 	try {
 		const result = await hubspotClient.crm.contacts.basicApi.create({
 			properties,
@@ -77,6 +80,7 @@ export const hsCreateContact = async (properties: any) => {
 };
 
 export const hsUpdateContact = async (id: string, properties: any) => {
+	properties.last_modified_by_api = dayjs();
 	try {
 		console.log('update contact ' + id + ' ' + properties?.email);
 		const result = await hubspotClient.crm.contacts.basicApi.update(id, {
@@ -113,16 +117,16 @@ export const hsGetDeals = async () => {
 			filterGroups: [
 				{
 					filters: [
-						// {
-						// 	operator: 'GTE',
-						// 	propertyName: 'createdate',
-						// 	value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
-						// },
 						{
 							operator: 'GTE',
 							propertyName: 'createdate',
-							value: `${dateUTC(dayjs().subtract(2, 'day').toString())}`,
+							value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
 						},
+						// {
+						// 	operator: 'GTE',
+						// 	propertyName: 'createdate',
+						// 	value: `${dateUTC(dayjs().subtract(2, 'day').toString())}`,
+						// },
 					],
 				},
 			],
@@ -139,58 +143,105 @@ export const hsGetDeals = async () => {
 	}
 };
 
-export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
+export const hsGetContacts = async (contactType: 'Client' | 'Intervenant' | 'Prospect') => {
 	try {
-		const { results } = await hubspotClient.crm.contacts.searchApi.doSearch({
-			filterGroups: [
-				{
-					filters: [
-						{ operator: 'GTE', propertyName: 'createdate', value: `${dateUTC(dayjs().subtract(1, 'day').toString())}` },
-						{ operator: 'EQ', propertyName: 'type_de_contact_aidadomi', value: contactType },
-					],
-				},
-			],
-			sorts: [],
-			properties: [
-				'age',
-				'date_of_birth',
-				'date_de_naissance',
-				'gir',
-				'categorie_client',
-				'type_de_contact',
-				'type_de_contact_aidadomi',
-				'firstname',
-				'lastname',
-				'city',
-				'ville',
-				'email',
-				'date_d_entree',
-				'zip',
-				'besoins',
-				'personne_isolee',
-				'civilite',
-				'phone',
-				'mobilephone',
-				'hs_content_membership_status',
-				'address',
-				'date_de_la_derniere_intervention_realisee',
-				'date_de_fin_de_mission',
-				'date_de_la_premiere_intervention_chez_le_client',
-				'nom_du_dernier_intervenant',
-				'derniere_intervention___nom_prestation',
-				'origine_de_la_demande',
-				'date_de_creation',
-				'situation_familiale_ximi',
-				'stade',
-				'date_de_la_derniere_intervention_realisee',
-				'entite',
-				'ximi_stade',
-			],
-			limit: 100,
-			after: 0,
+		let after = 0;
+		let results: any[] = [];
+		let hasMore = true;
+		const PAGE_SIZE = 100;
+
+		console.log(`${dayjs().subtract(2, 'hour').valueOf().toString()}`);
+
+		while (hasMore) {
+			const response = await hubspotClient.crm.contacts.searchApi.doSearch({
+				filterGroups: [
+					{
+						filters: [
+							{
+								operator: 'GTE',
+								propertyName: 'lastmodifieddate',
+								value: `${dayjs().subtract(2, 'hour').valueOf().toString()}`,
+							},
+							{ operator: 'EQ', propertyName: 'type_de_contact_aidadomi', value: contactType },
+						],
+					},
+				],
+				sorts: [],
+				properties: [
+					'age',
+					'date_of_birth',
+					'date_de_naissance',
+					'gir',
+					'last_modified_by_api',
+					'lastmodifieddate',
+					'categorie_client',
+					'type_de_contact',
+					'type_de_contact_aidadomi',
+					'firstname',
+					'lastname',
+					'city',
+					'ville',
+					'email',
+					'date_d_entree',
+					'zip',
+					'besoins',
+					'personne_isolee',
+					'competences',
+					'civilite',
+					'phone',
+					'mobilephone',
+					'hs_content_membership_status',
+					'address',
+					'date_de_la_derniere_intervention_realisee',
+					'date_de_fin_de_mission',
+					'date_de_la_premiere_intervention_chez_le_client',
+					'nom_du_dernier_intervenant',
+					'derniere_intervention___nom_prestation',
+					'origine_de_la_demande',
+					'date_de_creation',
+					'situation_familiale_ximi',
+					'stade',
+					'date_de_la_derniere_intervention_realisee',
+					'entite',
+					'ximi_stade',
+				],
+				limit: PAGE_SIZE,
+				after,
+			});
+
+			results = [...results, ...response.results];
+			if (response.paging) {
+				after = response.paging.next ? parseInt(response.paging.next.after) : 0;
+			} else {
+				hasMore = false;
+			}
+		}
+
+		const filteredResults = results.filter((contact: any) => {
+			const lastModified = contact.properties.lastmodifieddate ? dayjs(contact.properties.lastmodifieddate) : null;
+
+			const lastModifiedByApi = contact.properties.last_modified_by_api
+				? dayjs(contact.properties.last_modified_by_api)
+				: null;
+
+			if (!lastModified) {
+				return false;
+			}
+
+			const isAfter = lastModifiedByApi ? lastModified.subtract(3, 'minute').isAfter(lastModifiedByApi) : true;
+
+			console.log('-----------------');
+			console.log('CONTACT', contact.properties.firstname, contact.properties.lastname);
+			console.log('LAST MODIFIED', lastModified ? lastModified.toString() : null);
+			console.log('LAST MODIFIED BY API', lastModifiedByApi ? lastModifiedByApi.toString() : null);
+			console.log('LAST MODIFIED > LAST MODIFIED BY API', isAfter);
+
+			return isAfter;
 		});
 
-		return results ?? [];
+		console.log('FILTERED RESULTS', filteredResults.length);
+
+		return filteredResults ?? [];
 	} catch (err: any) {
 		console.log('SEARCH DEAL ERROR', err);
 		return [];
