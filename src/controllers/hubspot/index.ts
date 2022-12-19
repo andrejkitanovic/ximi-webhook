@@ -143,12 +143,14 @@ export const hsGetDeals = async () => {
 	}
 };
 
-export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
+export const hsGetContacts = async (contactType: 'Client' | 'Intervenant' | 'Prospect') => {
 	try {
 		let after = 0;
 		let results: any[] = [];
 		let hasMore = true;
 		const PAGE_SIZE = 100;
+
+		console.log(`${dayjs().subtract(2, 'hour').valueOf().toString()}`);
 
 		while (hasMore) {
 			const response = await hubspotClient.crm.contacts.searchApi.doSearch({
@@ -158,7 +160,7 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 							{
 								operator: 'GTE',
 								propertyName: 'lastmodifieddate',
-								value: `${dateUTC(dayjs().subtract(2, 'hour').toString())}`,
+								value: `${dayjs().subtract(2, 'hour').valueOf().toString()}`,
 							},
 							{ operator: 'EQ', propertyName: 'type_de_contact_aidadomi', value: contactType },
 						],
@@ -215,20 +217,12 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 			}
 		}
 
-		console.log('RESULTS', results.length);
-
 		const filteredResults = results.filter((contact: any) => {
-			console.log('-----------------');
-
-			console.log('CONTACT', contact.properties.firstname, contact.properties.lastname);
-
 			const lastModified = contact.properties.lastmodifieddate ? dayjs(contact.properties.lastmodifieddate) : null;
-			console.log('LAST MODIFIED', lastModified ? lastModified.toString() : null);
 
 			const lastModifiedByApi = contact.properties.last_modified_by_api
 				? dayjs(contact.properties.last_modified_by_api)
 				: null;
-			console.log('LAST MODIFIED BY API', lastModifiedByApi ? lastModifiedByApi.toString() : null);
 
 			if (!lastModified) {
 				return false;
@@ -236,6 +230,10 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 
 			const isAfter = lastModifiedByApi ? lastModified.subtract(3, 'minute').isAfter(lastModifiedByApi) : true;
 
+			console.log('-----------------');
+			console.log('CONTACT', contact.properties.firstname, contact.properties.lastname);
+			console.log('LAST MODIFIED', lastModified ? lastModified.toString() : null);
+			console.log('LAST MODIFIED BY API', lastModifiedByApi ? lastModifiedByApi.toString() : null);
 			console.log('LAST MODIFIED > LAST MODIFIED BY API', isAfter);
 
 			return isAfter;

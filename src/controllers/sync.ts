@@ -423,12 +423,15 @@ export const syncAgentsXimiToHS: RequestHandler | any = async (req, res, next) =
 export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next) => {
 	try {
 		const clientContacts = await hsGetContacts('Client');
+		const prospectContacts = await hsGetContacts('Prospect');
 		// console.log('clientContacts', clientContacts[0].properties);
 		// const intervenantContacts = await hsGetContacts('Intervenant');
 
-		// const contacts = [...clientContacts, ...intervenantContacts];
+		const contacts = [...clientContacts, ...prospectContacts];
 
-		for await (const contactRaw of clientContacts) {
+		console.log('contacts', contacts.length);
+
+		for await (const contactRaw of contacts) {
 			const contact = filterObject(contactRaw.properties);
 
 			const title =
@@ -481,7 +484,7 @@ export const syncContactsHStoXimi: RequestHandler | any = async (req, res, next)
 					FirstName: contact.firstname,
 					LastName: contact.lastname,
 					BirthDate: contact.date_of_birth,
-					MobilePhone: contact.phone,
+					MobilePhone: contact.mobilephone,
 					FamilyStatus: contact.situation_familiale_ximi,
 					EmailAddress1: contact.email,
 					Nature: 'Client',
@@ -584,8 +587,6 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 			if (agencies?.length) {
 				agency = agencies[0].Id;
 			}
-
-			console.log('%%%% contact.competences', contact.competences);
 
 			// const contactNeeds = contact.besoins.split(';').map((need: string) => need.trim());
 			const contactCompetences = contact.competences

@@ -457,7 +457,7 @@ export const ximiUpdateClient = async (id: string, data: any) => {
 	try {
 		console.log('Updating Ximi client...');
 		await axios.put(`${env}/api/clients/${id}`, data);
-		console.log('Ximi client updated');
+		console.log('------------Ximi client updated:', `${data.Contact.FirstName} ${data.Contact.LastName}`);
 	} catch (err: any) {
 		if (err.code === 'ERR_BAD_REQUEST') {
 			console.log('ERROR UPDATING AGENT', err.response.config.data);

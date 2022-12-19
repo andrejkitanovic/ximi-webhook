@@ -26,8 +26,8 @@ import { ximiGetRecentClientsGraphql } from 'controllers/ximi';
 import { syncAgentsHStoXimi, syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
 // import 'controllers/cron';
 // syncClientsXimiToHS();
-syncAgentsHStoXimi();
-// syncContactsHStoXimi();
+// syncAgentsHStoXimi();
+syncContactsHStoXimi();
 // ximiGetRecentClientsGraphql()
 // 	.then((res) =>
 // 		console.log(
@@ -37,6 +37,7 @@ syncAgentsHStoXimi();
 // 		)
 // 	)
 // 	.catch((err) => console.log(err));
+// syncClientsXimiToHS();
 
 const app = express();
 app.use(express.json());
