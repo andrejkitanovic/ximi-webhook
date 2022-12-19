@@ -182,6 +182,7 @@ export const hsGetContacts = async (contactType: 'Client' | 'Intervenant') => {
 					'zip',
 					'besoins',
 					'personne_isolee',
+					'competences',
 					'civilite',
 					'phone',
 					'mobilephone',

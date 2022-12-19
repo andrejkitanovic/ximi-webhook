@@ -23,10 +23,11 @@ import connection from 'helpers/connection';
 
 import routing from 'routes';
 import { ximiGetRecentClientsGraphql } from 'controllers/ximi';
-import { syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
+import { syncAgentsHStoXimi, syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
 // import 'controllers/cron';
 // syncClientsXimiToHS();
-syncContactsHStoXimi();
+syncAgentsHStoXimi();
+// syncContactsHStoXimi();
 // ximiGetRecentClientsGraphql()
 // 	.then((res) =>
 // 		console.log(

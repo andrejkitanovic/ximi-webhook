@@ -8,6 +8,7 @@ import {
 	ximiHSAgentExists,
 	ximiHSExists,
 	ximiSearchAgency,
+	ximiUpdateAgent,
 	ximiUpdateClient,
 } from './ximi';
 import './date';
@@ -539,34 +540,34 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 		for await (const contactRaw of intervenantContacts) {
 			const contact = filterObject(contactRaw.properties);
 
-			// let stage = null;
-			// if (contact.ximi_stade) {
-			// 	switch (contact.ximi_stade) {
-			// 		case 'CANDIDATE':
-			// 			stage = 0;
-			// 			break;
-			// 		case 'REFUSED_CANDIDATE':
-			// 			stage = 1;
-			// 			break;
-			// 		case 'AGENT':
-			// 			stage = 2;
-			// 			break;
-			// 		case 'LEFT_AGENT':
-			// 			stage = 3;
-			// 			break;
-			// 		case 'FIRED_AGENT':
-			// 			stage = 4;
-			// 			break;
-			// 		case 'EXTERNAL_AGENT':
-			// 			stage = 5;
-			// 			break;
-			// 		case 'ACCEPTED_CANDIDATE':
-			// 			stage = 6;
-			// 			break;
-			// 		default:
-			// 			break;
-			// 	}
-			// }
+			let stage = null;
+			if (contact.ximi_stade) {
+				switch (contact.ximi_stade) {
+					case 'CANDIDATE':
+						stage = 0;
+						break;
+					case 'REFUSED_CANDIDATE':
+						stage = 1;
+						break;
+					case 'AGENT':
+						stage = 2;
+						break;
+					case 'LEFT_AGENT':
+						stage = 3;
+						break;
+					case 'FIRED_AGENT':
+						stage = 4;
+						break;
+					case 'EXTERNAL_AGENT':
+						stage = 5;
+						break;
+					case 'ACCEPTED_CANDIDATE':
+						stage = 6;
+						break;
+					default:
+						break;
+				}
+			}
 
 			const title =
 				contact.civilite === 'Madame'
@@ -584,12 +585,23 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 				agency = agencies[0].Id;
 			}
 
-			const contactNeeds = contact.besoins.split(';').map((need: string) => need.trim());
+			console.log('%%%% contact.competences', contact.competences);
+
+			// const contactNeeds = contact.besoins.split(';').map((need: string) => need.trim());
+			const contactCompetences = contact.competences
+				? contact.competences.split(';').map((need: string) => need.trim())
+				: [];
 
 			//match each contactNeed to an item in skills.json by matching it to the Name field in the json file
-			const needs = contactNeeds.map((need: string) => {
-				const skill = skillsJson.find((skill: any) => skill.Name === need);
-				return skill?.Id;
+			const skills = contactCompetences.map((competence: string) => {
+				const skill = skillsJson.find((skill: any) => skill.Name === competence);
+				// return skill?.Id;
+				return {
+					Id: skill?.Id,
+					Active: skill?.Active,
+					Comments: skill?.Comments,
+					Name: skill?.Name,
+				};
 			});
 
 			const contactOrigin = contactOriginJson.find((origin: any) => origin.Code === contact.origine_de_la_demande);
@@ -615,14 +627,28 @@ export const syncAgentsHStoXimi: RequestHandler | any = async (req, res, next) =
 					City: contact.city || contact.ville || 'None',
 				},
 				AgencyId: agency,
-				NeedsIds: needs,
+				Skills: skills,
 				SourceId: sourceId,
 				// Stage: stage, //!!This cannot be changed by the API
 			});
 
-			await ximiCreateAgent(ximiObject);
+			// await ximiCreateAgent(ximiObject);
+
+			let agentExists = null;
+
+			agentExists = await ximiHSAgentExists(contact.firstname + ' ' + contact.lastname);
+
+			if (agentExists) {
+				console.log(`Contact exists: ${agentExists}`);
+				await ximiUpdateAgent(agentExists, stage ? { ...ximiObject, Stage: stage } : ximiObject);
+			} else {
+				console.log(`Contact doesn't exist: ${agentExists}`);
+				await ximiCreateAgent(ximiObject);
+			}
 		}
 	} catch (err) {
+		console.log(err);
+
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {
@@ -733,6 +759,8 @@ export const syncDealsHStoXimi: RequestHandler | any = async (req, res, next) =>
 			);
 		}
 	} catch (err) {
+		console.log(err);
+
 		await writeInFile({ path: 'file.log', context: '[ERROR]' + JSON.stringify(err) });
 
 		if (next) {

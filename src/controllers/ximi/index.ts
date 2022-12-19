@@ -470,6 +470,23 @@ export const ximiUpdateClient = async (id: string, data: any) => {
 	}
 };
 
+export const ximiUpdateAgent = async (id: string, data: any) => {
+	try {
+		console.log('Updating Ximi agent...');
+		await axios.put(`${env}/api/agents/${id}`, data);
+		console.log('Ximi agent updated');
+	} catch (err: any) {
+		if (err.code === 'ERR_BAD_REQUEST') {
+			console.log('ERROR UPDATING AGENT', err.response.config.data);
+			console.log('*****');
+			console.log(err.response.data);
+			return;
+		} else {
+			console.log('ERROR UPDATING AGENT', err);
+		}
+	}
+};
+
 export const ximiCreateAgent = async (data: any) => {
 	try {
 		console.log('Creating Ximi agent...');
