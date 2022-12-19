@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import moduleAlias from 'module-alias';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
 dotenv.config();
 moduleAlias.addAliases({
@@ -22,12 +22,12 @@ import errorMiddleware from 'middlewares/error';
 import connection from 'helpers/connection';
 
 import routing from 'routes';
-import { ximiGetRecentClientsGraphql } from 'controllers/ximi';
-import { syncAgentsHStoXimi, syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
-// import 'controllers/cron';
+// import { ximiGetRecentClientsGraphql } from 'controllers/ximi';
+// import { syncAgentsHStoXimi, syncAgentsXimiToHS, syncClientsXimiToHS, syncContactsHStoXimi } from 'controllers/sync';
+import 'controllers/cron';
 // syncClientsXimiToHS();
 // syncAgentsXimiToHS();
-syncAgentsHStoXimi();
+// syncAgentsHStoXimi();
 // syncContactsHStoXimi();
 // ximiGetRecentClientsGraphql()
 // 	.then((res) =>

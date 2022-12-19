@@ -117,16 +117,16 @@ export const hsGetDeals = async () => {
 			filterGroups: [
 				{
 					filters: [
-						// {
-						// 	operator: 'GTE',
-						// 	propertyName: 'createdate',
-						// 	value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
-						// },
 						{
 							operator: 'GTE',
 							propertyName: 'createdate',
-							value: `${dateUTC(dayjs().subtract(2, 'day').toString())}`,
+							value: `${dateUTC(dayjs().subtract(20, 'minute').toString())}`,
 						},
+						// {
+						// 	operator: 'GTE',
+						// 	propertyName: 'createdate',
+						// 	value: `${dateUTC(dayjs().subtract(2, 'day').toString())}`,
+						// },
 					],
 				},
 			],
